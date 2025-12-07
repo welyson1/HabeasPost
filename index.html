@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -20,16 +20,22 @@
                 extend: {
                     colors: {
                         law: {
+                            950: '#020617',
                             900: '#0f172a', // Navy dark
                             800: '#1e293b',
                             700: '#334155',
+                            600: '#475569',
                             gold: '#cca43b',
                             goldlight: '#e5c975',
+                            golddark: '#b38b2a',
                         }
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         serif: ['Playfair Display', 'serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(204, 164, 59, 0.3)',
                     }
                 }
             }
@@ -44,11 +50,29 @@
             border-radius: 1rem;
             padding: 1.5rem;
             border-left: 4px solid #cca43b;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         
+        /* Gallery Image Controls */
+        .gallery-container {
+            cursor: grab;
+            overflow: hidden;
+            background-image: radial-gradient(#334155 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .gallery-container:active {
+            cursor: grabbing;
+        }
+        .gallery-image {
+            transition: transform 0.1s ease-out;
+            transform-origin: center center;
+            max-width: none; /* Allow zoom beyond container */
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
+            height: 8px;
         }
         ::-webkit-scrollbar-track {
             background: #f1f1f1;
@@ -73,7 +97,7 @@
         /* Tab Animations */
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.4s ease-in-out;
         }
         .tab-content.active {
             display: block;
@@ -84,41 +108,48 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
 
     <!-- Navigation -->
-    <nav class="bg-law-900 text-white fixed w-full z-50 shadow-lg">
+    <nav class="bg-law-900/95 backdrop-blur-md text-white fixed w-full z-50 shadow-xl border-b border-law-800">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-scale-balanced text-law-gold text-2xl"></i>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-law-gold rounded-lg flex items-center justify-center text-law-900 shadow-glow">
+                    <i class="fa-solid fa-scale-balanced text-xl"></i>
+                </div>
                 <span class="font-serif text-xl font-bold tracking-wide">Habeas Post</span>
             </div>
-            <div class="hidden md:flex gap-6 text-sm font-medium">
-                <a href="#problema" class="hover:text-law-gold transition">O Problema</a>
-                <a href="#solucao" class="hover:text-law-gold transition">Como Funciona</a>
-                <a href="#ferramenta" class="bg-law-gold text-law-900 px-4 py-2 rounded-full hover:bg-law-goldlight transition font-bold">Começar Agora</a>
+            <div class="hidden md:flex gap-8 text-sm font-medium items-center">
+                <a href="#problema" class="text-slate-300 hover:text-law-gold transition duration-300">O Problema</a>
+                <a href="#solucao" class="text-slate-300 hover:text-law-gold transition duration-300">Como Funciona</a>
+                <a href="#resultados" class="text-slate-300 hover:text-law-gold transition duration-300">Exemplos</a>
+                <a href="#ferramenta" class="bg-gradient-to-r from-law-gold to-law-golddark text-white px-6 py-2.5 rounded-full hover:shadow-glow transition transform hover:-translate-y-0.5 font-bold text-xs uppercase tracking-wider">Começar Agora</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-law-900 text-white overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+    <header class="relative pt-36 pb-24 lg:pt-52 lg:pb-40 bg-law-950 text-white overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-law-950/50 to-law-950"></div>
+        
         <div class="container mx-auto px-6 relative z-10 text-center">
-            <div class="inline-block mb-4 px-3 py-1 border border-law-gold rounded-full text-law-gold text-xs uppercase tracking-wider font-semibold">
+            <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 border border-law-gold/50 bg-law-900/50 rounded-full text-law-goldlight text-xs uppercase tracking-wider font-semibold backdrop-blur-sm shadow-lg">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                 Compliance Jurídico 2.0
             </div>
-            <h1 class="font-serif text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Publique com mais segurança e <br> <span class="text-law-gold">Conformidade Ética</span>
+            <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight drop-shadow-lg">
+                Publique com mais segurança e <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-law-gold to-law-goldlight">Conformidade Ética</span>
             </h1>
-            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-light">
+            <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-12 font-light leading-relaxed">
                 O <strong>Habeas Post</strong> utiliza Inteligência Artificial treinada nas normas da OAB para auditar suas legendas, descrições, roteiros, imagens e vídeos antes de você postar.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#ferramenta" class="bg-law-gold hover:bg-law-goldlight text-law-900 font-bold py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
-                    <i class="fa-solid fa-robot mr-2"></i> Usar Analisador
+            <div class="flex flex-col sm:flex-row gap-5 justify-center">
+                <a href="#ferramenta" class="bg-law-gold hover:bg-law-goldlight text-law-900 font-bold py-4 px-10 rounded-xl shadow-lg hover:shadow-glow transition transform hover:-translate-y-1 flex items-center justify-center gap-2 group">
+                    <i class="fa-solid fa-robot group-hover:rotate-12 transition"></i> Usar Analisador
                 </a>
-                <a href="#solucao" class="border border-white hover:bg-white/10 text-white font-semibold py-4 px-8 rounded-lg transition">
+                <a href="#solucao" class="border border-law-700 bg-law-900/40 hover:bg-law-800 hover:border-law-600 text-white font-semibold py-4 px-10 rounded-xl transition flex items-center justify-center backdrop-blur-sm">
                     Entenda a Lógica
                 </a>
             </div>
@@ -126,46 +157,46 @@
     </header>
 
     <!-- Section: Dados sobre o Problema -->
-    <section id="problema" class="py-20 bg-white">
+    <section id="problema" class="py-24 bg-white">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
+            <div class="text-center mb-20">
                 <h2 class="text-3xl font-bold text-law-900 mb-4">A Linha Tênue do Marketing Jurídico</h2>
-                <div class="w-24 h-1 bg-law-gold mx-auto"></div>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
+                <div class="w-20 h-1.5 bg-law-gold mx-auto rounded-full"></div>
+                <p class="mt-6 text-slate-600 max-w-2xl mx-auto text-lg">
                     A advocacia não é um mercado comum. As regras de publicidade são rígidas e o desconhecimento não isenta a pena.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-10">
                 <!-- Card 1 -->
-                <div class="bg-slate-50 p-8 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-gavel text-red-600 text-2xl"></i>
+                <div class="bg-white p-10 rounded-2xl border border-slate-100 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300 group">
+                    <div class="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-red-100 transition">
+                        <i class="fa-solid fa-gavel text-red-600 text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-law-900">Risco de Infrações</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
+                    <h3 class="text-xl font-bold mb-4 text-law-900">Risco de Infrações</h3>
+                    <p class="text-slate-600 leading-relaxed">
                         Termos como "O melhor da região" ou promessas de resultado configuram captação indevida e mercantilização, sujeitos a processos disciplinares.
                     </p>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-slate-50 p-8 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-clock text-orange-600 text-2xl"></i>
+                <div class="bg-white p-10 rounded-2xl border border-slate-100 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300 group">
+                    <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-orange-100 transition">
+                        <i class="fa-solid fa-clock text-orange-600 text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-law-900">Complexidade Normativa</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
+                    <h3 class="text-xl font-bold mb-4 text-law-900">Complexidade Normativa</h3>
+                    <p class="text-slate-600 leading-relaxed">
                         Cruzar o Provimento 205/2021 com o Código de Ética e as resoluções estaduais a cada post do Instagram é exaustivo e inviável manualmente.
                     </p>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-slate-50 p-8 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="fa-solid fa-shield-halved text-blue-600 text-2xl"></i>
+                <div class="bg-white p-10 rounded-2xl border border-slate-100 shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300 group">
+                    <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-100 transition">
+                        <i class="fa-solid fa-shield-halved text-blue-600 text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-law-900">Insegurança Criativa</h3>
-                    <p class="text-slate-600 text-sm leading-relaxed">
+                    <h3 class="text-xl font-bold mb-4 text-law-900">Insegurança Criativa</h3>
+                    <p class="text-slate-600 leading-relaxed">
                         O medo de errar paralisa a produção de conteúdo. Advogados deixam de se posicionar digitalmente por receio de infringir normas.
                     </p>
                 </div>
@@ -174,148 +205,192 @@
     </section>
 
     <!-- Section: Explicação Visual -->
-    <section id="solucao" class="py-20 bg-slate-50 border-t border-slate-200">
+    <section id="solucao" class="py-24 bg-slate-50 border-t border-slate-200">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-law-900 mb-4">Duas formas de usar o Habeas Post</h2>
-                <p class="text-slate-600">Escolha a maneira que melhor se adapta ao seu fluxo de trabalho.</p>
+            <div class="text-center mb-20">
+                <span class="text-law-gold font-bold tracking-widest uppercase text-xs mb-2 block">Fluxo de Trabalho</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-law-900 mb-6">Duas formas de usar o Habeas Post</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Escolha a maneira que melhor se adapta à sua rotina, seja usando nossa inteligência pré-configurada ou adaptando à sua IA favorita.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
                 
                 <!-- Option A: Agents -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 hover:border-law-gold transition relative group">
-                    <div class="absolute -top-5 left-8 bg-law-gold text-law-900 font-bold px-4 py-1 rounded shadow text-sm">OPÇÃO A (Recomendada)</div>
-                    <div class="flex items-center gap-4 mb-6 mt-2">
-                        <div class="w-12 h-12 bg-law-900 text-white rounded-full flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-law-900">Usar Agentes Prontos</h3>
+                <div class="bg-white p-10 rounded-3xl shadow-lg border border-slate-200 hover:border-law-gold transition duration-300 relative group overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-law-gold"></div>
+                    <div class="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition transform group-hover:scale-110">
+                        <i class="fa-solid fa-robot text-9xl text-law-900"></i>
                     </div>
-                    <p class="text-slate-600 mb-6 leading-relaxed">
-                        Acesse nossos <strong>"GPTs" customizados</strong> que já possuem todas as leis (Estatuto, CED, Provimentos) pré-carregadas na memória.
-                    </p>
-                    <ul class="text-sm text-slate-500 space-y-2 mb-6">
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Não precisa baixar arquivos.</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Prompt já configurado.</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Basta clicar e usar.</li>
-                    </ul>
+                    
+                    <div class="relative z-10">
+                        <div class="inline-block bg-law-gold text-law-900 font-bold px-4 py-1.5 rounded-full text-xs mb-6 shadow-sm">OPÇÃO A (Recomendada)</div>
+                        <h3 class="text-2xl font-bold text-law-900 mb-4 flex items-center gap-3">
+                            Usar Agentes Prontos
+                            <i class="fa-solid fa-circle-check text-green-500 text-lg"></i>
+                        </h3>
+                        <p class="text-slate-600 mb-8 leading-relaxed h-20">
+                            Acesse nossos <strong>"GPTs" customizados</strong> que já possuem todas as leis (Estatuto, CED, Provimentos) pré-carregadas na memória. É clicar e usar.
+                        </p>
+                        
+                        <div class="space-y-3 mb-8">
+                            <div class="flex items-center gap-3 text-sm text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 flex-shrink-0"><i class="fa-solid fa-bolt"></i></div>
+                                <span>Zero configuração necessária</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 flex-shrink-0"><i class="fa-solid fa-brain"></i></div>
+                                <span>Prompt de engenharia avançada embutido</span>
+                            </div>
+                        </div>
+
+                        <a href="#ferramenta" onclick="switchTab('agents')" class="inline-block w-full text-center bg-law-900 text-white font-bold py-4 rounded-xl hover:bg-law-800 transition shadow-lg">
+                            Acessar Agentes
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Option B: Manual -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 hover:border-law-gold transition relative group">
-                    <div class="absolute -top-5 left-8 bg-slate-600 text-white font-bold px-4 py-1 rounded shadow text-sm">OPÇÃO B (Manual)</div>
-                    <div class="flex items-center gap-4 mb-6 mt-2">
-                        <div class="w-12 h-12 bg-slate-200 text-law-900 rounded-full flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-toolbox"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-law-900">Configuração Manual</h3>
+                <div class="bg-white p-10 rounded-3xl shadow-lg border border-slate-200 hover:border-slate-400 transition duration-300 relative group overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-slate-400"></div>
+                    <div class="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition transform group-hover:scale-110">
+                        <i class="fa-solid fa-toolbox text-9xl text-slate-800"></i>
                     </div>
-                    <p class="text-slate-600 mb-6 leading-relaxed">
-                        Prefere usar seu próprio chat (LLM Genérico)? Baixe nosso <strong>Kit de Documentos</strong> e copie nosso <strong>Prompt de Engenharia</strong>.
-                    </p>
-                    <ul class="text-sm text-slate-500 space-y-2 mb-6">
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-law-gold"></i> Controle total dos arquivos.</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-law-gold"></i> Funciona em qualquer IA.</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-law-gold"></i> Gratuito e transparente.</li>
-                    </ul>
+
+                    <div class="relative z-10">
+                        <div class="inline-block bg-slate-200 text-slate-700 font-bold px-4 py-1.5 rounded-full text-xs mb-6 shadow-sm">OPÇÃO B (Manual)</div>
+                        <h3 class="text-2xl font-bold text-law-900 mb-4 flex items-center gap-3">
+                            Configuração Manual
+                        </h3>
+                        <p class="text-slate-600 mb-8 leading-relaxed h-20">
+                            Prefere usar seu próprio chat (LLM Genérico ou Local)? Baixe nosso <strong>Kit de Documentos</strong> e copie nosso <strong>Prompt Mestre</strong>.
+                        </p>
+                        
+                        <div class="space-y-3 mb-8">
+                            <div class="flex items-center gap-3 text-sm text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0"><i class="fa-solid fa-file-pdf"></i></div>
+                                <span>Download dos PDFs oficiais atualizados</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                                <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0"><i class="fa-solid fa-universal-access"></i></div>
+                                <span>Funciona em qualquer IA (Claude, Llama, etc)</span>
+                            </div>
+                        </div>
+
+                        <a href="#ferramenta" onclick="switchTab('prompt')" class="inline-block w-full text-center bg-slate-100 text-law-900 font-bold py-4 rounded-xl hover:bg-slate-200 transition border border-slate-300">
+                            Ver Prompt & Arquivos
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Main Tool Section -->
-    <div id="ferramenta" class="bg-law-900 text-white py-20">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-10">
-                <span class="text-law-gold font-bold tracking-widest uppercase text-sm">A Ferramenta</span>
-                <h2 class="text-3xl md:text-4xl font-serif font-bold mt-2">Área de Trabalho</h2>
+    <div id="ferramenta" class="bg-law-900 text-white py-24 relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-law-gold to-transparent"></div>
+        <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-law-gold/10 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-12">
+                <span class="text-law-gold font-bold tracking-widest uppercase text-sm border border-law-gold/30 px-3 py-1 rounded-full bg-law-900/50 backdrop-blur-sm">A Ferramenta</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold mt-4 text-white">Área de Trabalho</h2>
+                <p class="text-slate-400 mt-3">Tudo o que você precisa em um só lugar.</p>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-12">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
                 
-                <!-- LEFT COLUMN: PROMPT GENERATOR -->
-                <div class="bg-law-800 p-8 rounded-2xl border border-law-700 shadow-2xl relative overflow-hidden">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-2xl font-bold text-white"><i class="fa-solid fa-terminal mr-2 text-law-gold"></i> Passo 1: O Prompt</h3>
-                        <div class="bg-law-900 rounded-lg p-1 border border-law-700">
-                            <i class="fa-solid fa-fingerprint text-slate-400 mx-2"></i>
-                        </div>
-                    </div>
-
+                <!-- LEFT COLUMN: PROMPT/AGENTS GENERATOR -->
+                <div class="bg-law-800/80 backdrop-blur-sm p-1 rounded-2xl border border-law-700 shadow-2xl relative">
+                    
                     <!-- Tabs Header -->
-                    <div class="flex gap-2 mb-6 border-b border-law-700 pb-1">
-                        <button onclick="switchTab('agents')" id="tab-btn-agents" class="px-4 py-2 text-sm font-bold text-law-gold border-b-2 border-law-gold transition-colors">
-                            <i class="fa-solid fa-robot mr-2"></i>Agentes Prontos
+                    <div class="flex bg-law-950/50 rounded-t-xl p-1 mb-0 border-b border-law-700">
+                        <button onclick="switchTab('agents')" id="tab-btn-agents" class="flex-1 px-4 py-3 text-sm font-bold text-law-900 bg-law-gold rounded-lg shadow-lg transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-robot"></i> Agentes Prontos
                         </button>
-                        <button onclick="switchTab('prompt')" id="tab-btn-prompt" class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors">
-                            <i class="fa-solid fa-code mr-2"></i>Modo Manual
+                        <button onclick="switchTab('prompt')" id="tab-btn-prompt" class="flex-1 px-4 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-code"></i> Modo Manual
                         </button>
                     </div>
 
-                    <!-- TAB 1: AGENTS (Default now based on flow) -->
-                    <div id="tab-content-agents" class="tab-content active">
-                        <p class="text-sm text-slate-300 mb-6">Clique em um dos <strong>Agentes</strong> abaixo para iniciar a análise imediatamente. Eles já conhecem as regras.</p>
-                        
-                        <div class="space-y-4" id="agents-container">
-                            <!-- Dynamic Agents will be injected here -->
+                    <div class="p-8 pt-6">
+                        <!-- TAB 1: AGENTS -->
+                        <div id="tab-content-agents" class="tab-content active">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-xl font-bold text-white">Escolha seu Agente</h3>
+                                <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded border border-green-500/30">Online</span>
+                            </div>
+                            
+                            <p class="text-sm text-slate-300 mb-6 leading-relaxed">Clique no card abaixo para abrir o chat diretamente na plataforma da IA. O agente já estará contextualizado.</p>
+                            
+                            <div class="space-y-4" id="agents-container">
+                                <!-- Dynamic Agents will be injected here -->
+                            </div>
+
+                            <div class="mt-6 p-4 bg-law-900/50 rounded-lg border border-law-700 flex gap-3">
+                                <i class="fa-solid fa-circle-exclamation text-law-gold mt-1 flex-shrink-0"></i>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    <strong>Nota:</strong> É necessário ter conta (às vezes conta Plus/Advanced) no ChatGPT ou Google Gemini para acessar GPTs customizados.
+                                </p>
+                            </div>
                         </div>
 
-                        <div class="mt-6 p-4 bg-law-900/50 rounded-lg border border-law-700 flex gap-3">
-                            <i class="fa-solid fa-circle-exclamation text-law-gold mt-1"></i>
-                            <p class="text-xs text-slate-400">
-                                <strong>Nota:</strong> Para usar os agentes, você pode precisar de login nas respectivas plataformas (ChatGPT ou Google Gemini).
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- TAB 2: PROMPT -->
-                    <div id="tab-content-prompt" class="tab-content">
-                        <p class="text-sm text-slate-300 mb-3">Copie o prompt abaixo e cole em qualquer LLM (ChatGPT, Gemini, DeepSeek, Claude) junto com os arquivos do Passo 2.</p>
-                        
-                        <div class="relative group">
-                            <div class="absolute top-0 right-0 p-2 z-10">
-                                <button onclick="copyPrompt()" class="bg-law-gold hover:bg-law-goldlight text-law-900 text-xs font-bold py-1 px-3 rounded shadow transition flex items-center gap-1">
-                                    <i class="fa-regular fa-copy"></i> Copiar
+                        <!-- TAB 2: PROMPT -->
+                        <div id="tab-content-prompt" class="tab-content">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold text-white">Prompt Mestre</h3>
+                                <button onclick="copyPrompt()" class="bg-law-gold hover:bg-law-goldlight text-law-900 text-xs font-bold py-1.5 px-3 rounded shadow transition flex items-center gap-2 active:scale-95">
+                                    <i class="fa-regular fa-copy"></i> Copiar Texto
                                 </button>
                             </div>
-                            <textarea id="promptArea" readonly class="w-full h-64 bg-law-900 text-slate-300 font-mono text-xs p-4 pt-10 rounded-lg border border-law-700 focus:outline-none resize-none leading-relaxed custom-scrollbar"></textarea>
+
+                            <div class="relative group">
+                                <textarea id="promptArea" readonly class="w-full h-80 bg-law-950 text-slate-300 font-mono text-xs p-5 rounded-lg border border-law-700 focus:outline-none focus:border-law-gold resize-none leading-relaxed custom-scrollbar shadow-inner"></textarea>
+                                <div class="absolute bottom-4 right-4 text-xs text-slate-600 pointer-events-none group-hover:text-slate-500 transition">apenas leitura</div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3 mt-4 text-xs text-slate-400 italic">
+                                <i class="fa-solid fa-lightbulb text-law-gold flex-shrink-0 mt-0.5"></i>
+                                <p>Dica: Após colar este prompt, anexe os PDFs ao lado para garantir que a IA tenha a base legal correta.</p>
+                            </div>
                         </div>
-                        <p class="text-xs text-slate-400 mt-3 italic">
-                            <i class="fa-solid fa-circle-info mr-1"></i> Este prompt instrui a IA a agir como um auditor do TED/OAB.
-                        </p>
                     </div>
                 </div>
 
                 <!-- RIGHT COLUMN: KNOWLEDGE SOURCE -->
                 <div class="flex flex-col gap-6">
-                    <div class="bg-white text-law-900 p-8 rounded-2xl shadow-xl">
-                        <h3 class="text-2xl font-bold mb-6 flex items-center">
-                            <span class="bg-law-900 text-white w-8 h-8 rounded flex items-center justify-center text-sm mr-3">2</span>
-                            Fonte de Conhecimento
+                    <div class="bg-white text-law-900 p-8 rounded-2xl shadow-xl border-l-4 border-law-gold relative">
+                        <div class="absolute -top-3 -right-3 w-10 h-10 bg-law-gold text-white rounded-full flex items-center justify-center font-bold shadow-lg">2</div>
+                        
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-book-bookmark text-law-gold"></i>
+                            Base de Conhecimento
                         </h3>
                         
-                        <p class="text-slate-600 mb-6 text-sm">
-                            Se optar pelo <strong>Modo Manual</strong>, baixe estes documentos para anexar na sua IA.
+                        <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                            Documentos essenciais para a IA analisar seu caso. Se estiver usando o <strong>Modo Manual</strong>, você deve baixar e anexar estes arquivos no seu chat.
                         </p>
 
-                        <div id="files-container" class="space-y-3">
+                        <div id="files-container" class="space-y-3 max-h-[360px] overflow-y-auto pr-2 custom-scrollbar-dark">
                             <!-- Dynamic Files will be injected here -->
                         </div>
 
-                        <button onclick="downloadAll()" class="w-full mt-6 bg-law-900 hover:bg-law-800 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-file-zipper"></i> Baixar Tudo (.zip)
+                        <button onclick="downloadAll()" class="w-full mt-6 bg-law-900 hover:bg-law-800 text-white font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-file-zipper"></i> Baixar Kit Completo (.zip)
                         </button>
                     </div>
 
                     <!-- Instructions Block -->
                     <div class="bg-law-gold/10 border border-law-gold/30 p-6 rounded-2xl">
-                        <h4 class="font-bold text-law-gold mb-2 text-sm uppercase">Tutorial Rápido (Manual):</h4>
-                        <ol class="list-decimal list-inside text-sm text-slate-300 space-y-2">
-                            <li>Baixe o Kit de PDFs acima.</li>
-                            <li>Abra sua IA favorita (Upload de arquivos).</li>
-                            <li>Cole o <strong>Prompt Universal</strong> (Aba Modo Manual).</li>
-                            <li>Cole o texto/legenda do seu post.</li>
+                        <h4 class="font-bold text-law-gold mb-3 text-sm uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-list-check"></i> Passo a Passo (Manual)
+                        </h4>
+                        <ol class="list-decimal list-inside text-sm text-slate-300 space-y-2.5 ml-1">
+                            <li><span class="text-slate-400">Baixe</span> o Kit de PDFs acima.</li>
+                            <li><span class="text-slate-400">Abra</span> sua IA (ChatGPT, Claude, Gemini...).</li>
+                            <li><span class="text-slate-400">Anexe</span> os arquivos PDF no chat.</li>
+                            <li><span class="text-slate-400">Cole</span> o Prompt Universal (Aba 1).</li>
+                            <li><span class="text-slate-400">Envie</span> seu texto/imagem para análise.</li>
                         </ol>
                     </div>
                 </div>
@@ -323,63 +398,90 @@
         </div>
     </div>
 
-    <!-- Section: Expected Result -->
-    <section class="py-20 bg-white">
+    <!-- Section: Expected Result & Gallery -->
+    <section id="resultados" class="py-24 bg-slate-50">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-law-900">Resultado Esperado</h2>
-                <p class="text-slate-600 mt-2">Veja como a IA atua como seu Consultor Jurídico Pessoal.</p>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-law-900">Galeria de Resultados</h2>
+                <p class="text-slate-600 mt-3 max-w-2xl mx-auto">Veja exemplos reais de como o Habeas Post identifica problemas em imagens e textos.</p>
             </div>
 
-            <div class="max-w-3xl mx-auto">
-                <div class="chat-bubble shadow-lg">
-                    <div class="flex items-center gap-3 mb-4 border-b border-slate-200 pb-3">
-                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                            <i class="fa-solid fa-robot text-green-600"></i>
-                        </div>
-                        <span class="font-bold text-sm text-slate-700">Resposta da IA (Exemplo)</span>
+            <!-- Gallery Interface -->
+            <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200 flex flex-col lg:flex-row h-[700px] lg:h-[600px]">
+                
+                <!-- Image Viewer (Left/Top) -->
+                <div class="lg:w-2/3 bg-slate-900 relative group overflow-hidden flex flex-col">
+                    <!-- Toolbar -->
+                    <div class="absolute top-4 left-4 z-20 flex gap-2">
+                        <button onclick="adjustZoom(0.1)" class="w-8 h-8 bg-black/50 text-white rounded hover:bg-black/80 backdrop-blur transition flex items-center justify-center" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+                        <button onclick="adjustZoom(-0.1)" class="w-8 h-8 bg-black/50 text-white rounded hover:bg-black/80 backdrop-blur transition flex items-center justify-center" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+                        <button onclick="resetZoom()" class="w-8 h-8 bg-black/50 text-white rounded hover:bg-black/80 backdrop-blur transition flex items-center justify-center" title="Reset"><i class="fa-solid fa-compress"></i></button>
                     </div>
                     
-                    <div class="prose prose-sm max-w-none text-slate-700">
-                        <p class="font-bold text-law-900">Habeas Post - Análise de Conformidade</p>
-                        
-                        <!-- Format based on the prompt instructions -->
-                        <div class="mb-4">
-                            <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold">ATENÇÃO</span>
+                    <div class="absolute top-4 right-4 z-20 bg-black/50 text-white text-xs px-3 py-1 rounded backdrop-blur pointer-events-none">
+                        <i class="fa-solid fa-mouse-pointer mr-1"></i> Arraste para mover
+                    </div>
+
+                    <!-- Main Image Container -->
+                    <div id="gallery-viewport" class="gallery-container w-full h-full flex items-center justify-center relative">
+                        <img id="main-image" src="https://placehold.co/800x600/1e293b/FFF?text=Carregando+Exemplo..." alt="Análise" class="gallery-image shadow-2xl select-none" draggable="false">
+                    </div>
+                </div>
+
+                <!-- Sidebar / Analysis Info (Right/Bottom) -->
+                <div class="lg:w-1/3 bg-white flex flex-col border-l border-slate-200">
+                    <!-- Text Content -->
+                    <div class="p-6 flex-1 overflow-y-auto custom-scrollbar">
+                        <div id="analysis-content">
+                            <!-- Dynamic Content Injected Here -->
+                            <div class="animate-pulse space-y-4">
+                                <div class="h-4 bg-slate-200 rounded w-3/4"></div>
+                                <div class="h-4 bg-slate-200 rounded w-1/2"></div>
+                            </div>
                         </div>
+                    </div>
 
-                        <p><strong>a) Sugestão:</strong> ATENÇÃO</p>
-
-                        <p><strong>b) Análise:</strong> O termo "Consulta Gratuita" fere o princípio de não mercantilização da advocacia. A oferta de serviços gratuitos para captação de clientela é vedada pelo <strong>Art. 39 do Código de Ética e Disciplina</strong>.</p>
-                        
-                        <p><strong>c) Sugestão de Correção:</strong></p>
-                        <div class="p-4 bg-slate-100 rounded border-l-4 border-law-gold italic text-slate-600">
-                            "Agende um horário para entendermos o seu caso e discutirmos seus direitos detalhadamente."
+                    <!-- Thumbnails -->
+                    <div class="p-4 bg-slate-50 border-t border-slate-200">
+                        <p class="text-xs font-bold text-slate-500 uppercase mb-3">Selecione um caso:</p>
+                        <div class="flex gap-3 overflow-x-auto pb-2 custom-scrollbar" id="thumbnails-container">
+                            <!-- Thumbnails injected via JS -->
                         </div>
-
-                        <p class="mt-6 text-xs text-slate-500 italic font-bold text-right border-t pt-2">
-                            O Habeas Post pode cometer erros ou interpretações equivocadas. Esta análise não substitui a consulta oficial ao Tribunal de Ética e Disciplina (TED).
-                        </p>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-law-900 text-slate-400 py-12 border-t border-law-800">
-        <div class="container mx-auto px-6 text-center">
-            <div class="flex items-center justify-center gap-2 mb-4">
-                <i class="fa-solid fa-scale-balanced text-law-gold text-2xl"></i>
-                <span class="font-serif text-xl font-bold text-white tracking-wide">Habeas Post</span>
+    <footer class="bg-law-950 text-slate-400 py-16 border-t border-law-900">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10">
+                <div class="flex items-center gap-3 mb-6 md:mb-0">
+                    <div class="w-10 h-10 bg-law-gold rounded flex items-center justify-center text-law-900">
+                        <i class="fa-solid fa-scale-balanced text-xl"></i>
+                    </div>
+                    <span class="font-serif text-2xl font-bold text-white tracking-wide">Habeas Post</span>
+                </div>
+                <div class="flex gap-6">
+                    <a href="#" class="w-10 h-10 rounded-full bg-law-900 flex items-center justify-center hover:bg-law-gold hover:text-law-900 transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-law-900 flex items-center justify-center hover:bg-law-gold hover:text-law-900 transition"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
             </div>
-            <p class="text-sm mb-6">Ferramenta auxiliar para advogados. A responsabilidade final pela publicação é sempre do profissional inscrito na OAB.</p>
-            <p class="text-xs">&copy; 2023 Habeas Post. Todos os direitos reservados.</p>
+            
+            <div class="border-t border-law-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm gap-4">
+                <p class="text-slate-500">
+                    Ferramenta auxiliar. A responsabilidade final é sempre do advogado(a).<br>
+                    Não possui vínculo oficial com a OAB.
+                </p>
+                <p class="text-slate-600">&copy; 2023 Habeas Post. Todos os direitos reservados.</p>
+            </div>
         </div>
     </footer>
 
     <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-50"></div>
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- Logic Script -->
     <script>
@@ -436,59 +538,57 @@ Comportamentos e Regras:
             ],
 
             "files": [
+                { "filename": "1 Estatuto da Advocacia e da OAB.pdf", "name": "Estatuto da Advocacia", "subtitle": "Documento Base", "icon": "fa-scale-balanced", "color": "text-law-gold" },
+                { "filename": "2 Código de Ética e Disciplina da Ordem dos Advogados.pdf", "name": "Código de Ética e Disciplina", "subtitle": "Regras de Conduta", "icon": "fa-file-pdf", "color": "text-red-600" },
+                { "filename": "3 Provimento 205 da OABPR.pdf", "name": "Provimento 205/2021", "subtitle": "Regras de Marketing", "icon": "fa-file-pdf", "color": "text-red-600" },
+                { "filename": "4 Notas Orientativas.pdf", "name": "Notas Orientativas", "subtitle": "Diretrizes Extras", "icon": "fa-circle-info", "color": "text-blue-500" },
+                { "filename": "5 Ementário de Jurisprudência da OABPR - Decisões Colegiadas.pdf", "name": "Ementário de Jurisprudência", "subtitle": "Casos Julgados", "icon": "fa-gavel", "color": "text-slate-600" }
+            ],
+
+            "gallery": [
                 {
-                    "filename": "1 Estatuto da Advocacia e da OAB.pdf",
-                    "name": "Estatuto da Advocacia",
-                    "subtitle": "Documento 1",
-                    "icon": "fa-scale-balanced",
-                    "color": "text-law-gold"
+                    "id": 1,
+                    "title": "Caso: Promessa de Resultado",
+                    "image": "exemplo1.jpeg",
+                    "status": "NÃO RECOMENDADO",
+                    "statusColor": "bg-red-100 text-red-800",
+                    "description": "O post utiliza a frase 'Ganhamos Sempre', o que configura promessa de resultado e induz o cliente a erro.",
+                    "correction": "Substituir por 'Atuação diligente na defesa dos seus direitos', focando nos meios e não no fim."
                 },
                 {
-                    "filename": "2 Código de Ética e Disciplina da Ordem dos Advogados.pdf",
-                    "name": "Código de Ética e Disciplina",
-                    "subtitle": "Documento 2",
-                    "icon": "fa-file-pdf",
-                    "color": "text-red-600"
+                    "id": 2,
+                    "title": "Caso: Ostentação",
+                    "image": "exemplo2.jpeg",
+                    "status": "ATENÇÃO",
+                    "statusColor": "bg-yellow-100 text-yellow-800",
+                    "description": "A imagem foca excessivamente em bens materiais (carro de luxo) associados ao exercício da profissão, o que pode ferir o princípio da sobriedade.",
+                    "correction": "Utilizar imagens em ambiente de escritório ou neutras que remetam à atividade intelectual da advocacia."
                 },
                 {
-                    "filename": "3 Provimento 205 da OABPR.pdf",
-                    "name": "Provimento 205 (OABPR)",
-                    "subtitle": "Documento 3",
-                    "icon": "fa-file-pdf",
-                    "color": "text-red-600"
-                },
-                {
-                    "filename": "4 Notas Orientativas.pdf",
-                    "name": "Notas Orientativas",
-                    "subtitle": "Documento 4",
-                    "icon": "fa-circle-info",
-                    "color": "text-blue-500"
-                },
-                {
-                    "filename": "5 Ementário de Jurisprudência da OABPR - Decisões Colegiadas.pdf",
-                    "name": "Ementário de Jurisprudência",
-                    "subtitle": "Documento 5",
-                    "icon": "fa-gavel",
-                    "color": "text-slate-600"
+                    "id": 3,
+                    "title": "Caso: Informativo Correto",
+                    "image": "https://placehold.co/800x800/14532d/dcfce7?text=Dica+Jur%C3%ADdica:+Direito+do+Consumidor",
+                    "status": "RECOMENDADO",
+                    "statusColor": "bg-green-100 text-green-800",
+                    "description": "O conteúdo é meramente informativo, esclarecendo dúvidas sobre direitos do consumidor sem incitar litígio ou captar clientes diretamente.",
+                    "correction": "Nenhuma correção necessária. Ótimo exemplo de marketing de conteúdo."
                 }
             ]
         };
 
         // --- RENDER FUNCTIONS ---
 
-        // 1. Render Prompt
         function renderPrompt() {
             document.getElementById('promptArea').value = habeasData.prompt;
         }
 
-        // 2. Render Agents
         function renderAgents() {
             const container = document.getElementById('agents-container');
             container.innerHTML = habeasData.agents.map(agent => `
                 <a href="${agent.url}" target="_blank" class="block w-full group">
-                    <div class="flex items-center justify-between p-5 bg-law-900 border-2 border-law-700 rounded-lg group-hover:border-law-gold transition-all shadow-md group-hover:bg-law-800">
+                    <div class="flex items-center justify-between p-5 bg-law-900/40 border-2 border-law-700 rounded-xl group-hover:border-law-gold transition-all shadow-md group-hover:bg-law-900/60 backdrop-blur-sm">
                         <div class="flex items-center gap-5">
-                            <div class="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg ${agent.colorClass}">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg ${agent.colorClass} group-hover:scale-110 transition-transform">
                                 <i class="${agent.icon} text-xl"></i>
                             </div>
                             <div class="text-left">
@@ -496,78 +596,180 @@ Comportamentos e Regras:
                                 <p class="text-sm text-slate-400 mt-1">${agent.description}</p>
                             </div>
                         </div>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-law-gold text-xl"></i>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-law-gold text-xl transition-colors"></i>
                     </div>
                 </a>
             `).join('');
         }
 
-        // 3. Render Files
         function renderFiles() {
             const container = document.getElementById('files-container');
             container.innerHTML = habeasData.files.map(file => `
-                <div class="flex items-center justify-between p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition group">
+                <div class="flex items-center justify-between p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition group bg-white">
                     <div class="flex items-center gap-3 overflow-hidden">
                         <i class="fa-regular ${file.icon} ${file.color} text-xl flex-shrink-0"></i>
                         <div class="overflow-hidden">
-                            <h5 class="font-bold text-sm text-law-900 truncate">${file.name}</h5>
-                            <p class="text-xs text-slate-500 truncate">${file.filename}</p>
+                            <h5 class="font-bold text-sm text-law-900 truncate group-hover:text-law-gold transition">${file.name}</h5>
+                            <p class="text-xs text-slate-500 truncate">${file.subtitle}</p>
                         </div>
                     </div>
-                    <a href="${file.filename}" download class="text-law-900 hover:text-law-gold transition px-2 py-1 flex-shrink-0" title="Baixar Arquivo">
+                    <a href="${file.filename}" download class="text-slate-400 hover:text-law-900 transition px-2 py-1 flex-shrink-0" title="Baixar Arquivo">
                         <i class="fa-solid fa-download"></i>
                     </a>
                 </div>
             `).join('');
         }
 
+        // --- GALLERY LOGIC ---
+        let currentScale = 1;
+        let pannedX = 0;
+        let pannedY = 0;
+        let isDragging = false;
+        let startX, startY;
+        const mainImage = document.getElementById('main-image');
+        const viewport = document.getElementById('gallery-viewport');
+
+        function initGallery() {
+            const thumbsContainer = document.getElementById('thumbnails-container');
+            
+            // Render Thumbnails
+            thumbsContainer.innerHTML = habeasData.gallery.map((item, index) => `
+                <div onclick="loadGalleryItem(${index})" class="min-w-[80px] w-20 h-20 rounded-lg overflow-hidden border-2 border-slate-200 hover:border-law-gold cursor-pointer transition relative group">
+                    <img src="${item.image}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
+                </div>
+            `).join('');
+
+            // Load first item
+            loadGalleryItem(0);
+
+            // Add Event Listeners for Pan/Zoom
+            viewport.addEventListener('mousedown', startDrag);
+            viewport.addEventListener('mousemove', drag);
+            viewport.addEventListener('mouseup', endDrag);
+            viewport.addEventListener('mouseleave', endDrag);
+            viewport.addEventListener('wheel', handleWheel, { passive: false });
+        }
+
+        function loadGalleryItem(index) {
+            const item = habeasData.gallery[index];
+            const contentDiv = document.getElementById('analysis-content');
+            
+            // Update Main Image
+            mainImage.src = item.image;
+            resetZoom(); // Reset view when changing image
+
+            // Update Content Info
+            contentDiv.innerHTML = `
+                <div class="mb-4">
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${item.statusColor}">${item.status}</span>
+                </div>
+                <h4 class="text-xl font-bold text-law-900 mb-2">${item.title}</h4>
+                <div class="prose prose-sm text-slate-600">
+                    <p class="mb-4"><strong>Análise:</strong> ${item.description}</p>
+                    <div class="bg-slate-50 border-l-4 border-law-gold p-4 rounded-r">
+                        <p class="text-xs font-bold text-law-900 uppercase mb-1">Sugestão:</p>
+                        <p class="italic text-slate-700">"${item.correction}"</p>
+                    </div>
+                </div>
+            `;
+            
+            // Trigger simple animation
+            contentDiv.classList.remove('opacity-0');
+            contentDiv.classList.add('opacity-0');
+            setTimeout(() => contentDiv.classList.remove('opacity-0'), 50);
+        }
+
+        // Zoom Functions
+        function updateTransform() {
+            mainImage.style.transform = `translate(${pannedX}px, ${pannedY}px) scale(${currentScale})`;
+        }
+
+        function adjustZoom(delta) {
+            const newScale = currentScale + delta;
+            if (newScale >= 0.5 && newScale <= 4) {
+                currentScale = newScale;
+                updateTransform();
+            }
+        }
+
+        function resetZoom() {
+            currentScale = 1;
+            pannedX = 0;
+            pannedY = 0;
+            updateTransform();
+        }
+
+        function handleWheel(e) {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.1 : 0.1;
+            adjustZoom(delta);
+        }
+
+        // Pan Functions
+        function startDrag(e) {
+            e.preventDefault(); // Prevent default image dragging behavior
+            isDragging = true;
+            startX = e.clientX - pannedX;
+            startY = e.clientY - pannedY;
+            viewport.style.cursor = 'grabbing';
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            pannedX = e.clientX - startX;
+            pannedY = e.clientY - startY;
+            updateTransform();
+        }
+
+        function endDrag() {
+            isDragging = false;
+            viewport.style.cursor = 'grab';
+        }
+
         // --- INTERACTION FUNCTIONS ---
 
-        // Tab Switching Logic
         function switchTab(tab) {
             // Hide all content
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             
-            // Reset buttons
-            document.getElementById('tab-btn-prompt').className = "px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors cursor-pointer";
-            document.getElementById('tab-btn-agents').className = "px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors cursor-pointer";
+            // Reset buttons style
+            const defaultBtnClass = "flex-1 px-4 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2";
+            const activeBtnClass = "flex-1 px-4 py-3 text-sm font-bold text-law-900 bg-law-gold rounded-lg shadow-lg transition-all flex items-center justify-center gap-2";
+
+            document.getElementById('tab-btn-agents').className = defaultBtnClass;
+            document.getElementById('tab-btn-prompt').className = defaultBtnClass;
             
-            // Show selected content & Highlights button
+            // Activate
             document.getElementById(`tab-content-${tab}`).classList.add('active');
-            
-            const activeBtnClass = "px-4 py-2 text-sm font-bold text-law-gold border-b-2 border-law-gold transition-colors cursor-pointer";
             document.getElementById(`tab-btn-${tab}`).className = activeBtnClass;
         }
 
-        // Copy to Clipboard
         function copyPrompt() {
             const promptArea = document.getElementById('promptArea');
             promptArea.select();
-            promptArea.setSelectionRange(0, 99999); // Mobile
+            promptArea.setSelectionRange(0, 99999);
             
             navigator.clipboard.writeText(promptArea.value).then(() => {
-                showToast("Prompt Universal copiado! ✅");
+                showToast("Prompt copiado com sucesso! ✅");
             }).catch(err => {
-                showToast("Erro ao copiar. Tente manual. ❌");
+                showToast("Erro ao copiar. ❌");
             });
         }
 
         function downloadAll() {
-            // In a real scenario, this would create a ZIP using JSZip or similar.
-            // For this single-file demo, we simulate the action.
             showToast("Gerando arquivo .ZIP com todas as normas... 📦");
             setTimeout(() => {
-                showToast("Download do Kit Habeas Post iniciado! 🚀");
-                // Here you would trigger the actual zip download
+                showToast("Download iniciado! 🚀");
             }, 1500);
         }
 
-        // Toast Notification System
         function showToast(message) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             
-            toast.className = "toast bg-law-900 text-white px-6 py-4 rounded-lg shadow-xl border-l-4 border-law-gold mb-3 flex items-center gap-3 min-w-[300px]";
+            toast.className = "toast pointer-events-auto bg-law-900 text-white px-6 py-4 rounded-lg shadow-xl border-l-4 border-law-gold mb-3 flex items-center gap-3 min-w-[300px]";
             toast.innerHTML = `
                 <i class="fa-solid fa-bell text-law-gold"></i>
                 <span class="font-medium text-sm">${message}</span>
@@ -575,7 +777,6 @@ Comportamentos e Regras:
 
             container.appendChild(toast);
 
-            // Remove after 3 seconds
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transform = 'translateY(100%)';
@@ -589,6 +790,7 @@ Comportamentos e Regras:
             renderPrompt();
             renderAgents();
             renderFiles();
+            initGallery();
         });
 
     </script>
