@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habeas Post | Segurança no Marketing Jurídico com IA</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        law: {
+                            900: '#0f172a', // Navy dark
+                            800: '#1e293b',
+                            700: '#334155',
+                            gold: '#cca43b',
+                            goldlight: '#e5c975',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles specifically for the Chat UI */
+        .chat-bubble {
+            position: relative;
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border-left: 4px solid #cca43b;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Toast Animation */
+        @keyframes slideIn {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .toast {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+        
+        /* Tab Animations */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-law-900 text-white fixed w-full z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-scale-balanced text-law-gold text-2xl"></i>
+                <span class="font-serif text-xl font-bold tracking-wide">Habeas Post</span>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-medium">
+                <a href="#problema" class="hover:text-law-gold transition">O Problema</a>
+                <a href="#solucao" class="hover:text-law-gold transition">Como Funciona</a>
+                <a href="#ferramenta" class="bg-law-gold text-law-900 px-4 py-2 rounded-full hover:bg-law-goldlight transition font-bold">Começar Agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-law-900 text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <div class="inline-block mb-4 px-3 py-1 border border-law-gold rounded-full text-law-gold text-xs uppercase tracking-wider font-semibold">
+                Compliance Jurídico 2.0
+            </div>
+            <h1 class="font-serif text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Publique sem medo do <br> <span class="text-law-gold">Tribunal de Ética</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-light">
+                O <strong>Habeas Post</strong> utiliza Inteligência Artificial treinada nas normas da OAB para auditar suas legendas, roteiros e copys antes de você postar.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#ferramenta" class="bg-law-gold hover:bg-law-goldlight text-law-900 font-bold py-4 px-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
+                    <i class="fa-solid fa-robot mr-2"></i> Usar Analisador
+                </a>
+                <a href="#solucao" class="border border-white hover:bg-white/10 text-white font-semibold py-4 px-8 rounded-lg transition">
+                    Entenda a Lógica
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section: Dados sobre o Problema -->
+    <section id="problema" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-law-900 mb-4">A Linha Tênue do Marketing Jurídico</h2>
+                <div class="w-24 h-1 bg-law-gold mx-auto"></div>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
+                    A advocacia não é um mercado comum. As regras de publicidade são rígidas e o desconhecimento não isenta a pena.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-slate-50 p-8 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-gavel text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-law-900">Risco de Infrações</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Termos como "O melhor da região" ou promessas de resultado configuram captação indevida e mercantilização, sujeitos a processos disciplinares.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-slate-50 p-8 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-clock text-orange-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-law-900">Complexidade Normativa</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Cruzar o Provimento 205/2021 com o Código de Ética e as resoluções estaduais a cada post do Instagram é exaustivo e inviável manualmente.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-slate-50 p-8 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-shield-halved text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-law-900">Insegurança Criativa</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        O medo de errar paralisa a produção de conteúdo. Advogados deixam de se posicionar digitalmente por receio de infringir normas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Explicação Visual -->
+    <section id="solucao" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-law-900 mb-4">Como o Habeas Post Funciona</h2>
+                <p class="text-slate-600">Um fluxo simples para garantir sua conformidade.</p>
+            </div>
+
+            <div class="relative">
+                <!-- Line Connector for Desktop -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-300 -z-10 transform -translate-y-1/2"></div>
+                
+                <div class="grid md:grid-cols-4 gap-8 text-center">
+                    <!-- Step 1 -->
+                    <div class="relative bg-white p-6 rounded-lg shadow-sm">
+                        <div class="w-12 h-12 bg-law-900 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border-4 border-slate-50">1</div>
+                        <h4 class="font-bold text-lg mb-2">Seus Documentos</h4>
+                        <p class="text-xs text-slate-500">Baixe o kit de normas (Provimento, CED, etc.) no Passo 2.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative bg-white p-6 rounded-lg shadow-sm">
+                        <div class="w-12 h-12 bg-law-900 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border-4 border-slate-50">2</div>
+                        <h4 class="font-bold text-lg mb-2">Prompt ou Agent</h4>
+                        <p class="text-xs text-slate-500">Use nosso prompt universal ou acesse os agentes já configurados.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative bg-white p-6 rounded-lg shadow-sm">
+                        <div class="w-12 h-12 bg-law-gold text-law-900 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border-4 border-slate-50">3</div>
+                        <h4 class="font-bold text-lg mb-2">Análise da IA</h4>
+                        <p class="text-xs text-slate-500">A IA cruza seu texto com as normas legais.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative bg-white p-6 rounded-lg shadow-sm border-2 border-green-500">
+                        <div class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border-4 border-slate-50"><i class="fa-solid fa-check"></i></div>
+                        <h4 class="font-bold text-lg mb-2">Post Seguro</h4>
+                        <p class="text-xs text-slate-500">Receba o relatório de infrações e sugestões de correção.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Tool Section -->
+    <div id="ferramenta" class="bg-law-900 text-white py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-10">
+                <span class="text-law-gold font-bold tracking-widest uppercase text-sm">A Ferramenta</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mt-2">Área de Trabalho</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                
+                <!-- LEFT COLUMN: PROMPT GENERATOR -->
+                <div class="bg-law-800 p-8 rounded-2xl border border-law-700 shadow-2xl relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-white"><i class="fa-solid fa-terminal mr-2 text-law-gold"></i> Passo 1: O Prompt</h3>
+                        <div class="bg-law-900 rounded-lg p-1 border border-law-700">
+                            <i class="fa-solid fa-fingerprint text-slate-400 mx-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tabs Header -->
+                    <div class="flex gap-2 mb-6 border-b border-law-700 pb-1">
+                        <button onclick="switchTab('prompt')" id="tab-btn-prompt" class="px-4 py-2 text-sm font-bold text-law-gold border-b-2 border-law-gold transition-colors">
+                            <i class="fa-solid fa-code mr-2"></i>Prompt Universal
+                        </button>
+                        <button onclick="switchTab('agents')" id="tab-btn-agents" class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                            <i class="fa-solid fa-robot mr-2"></i>Agents Oficiais
+                        </button>
+                    </div>
+
+                    <!-- TAB 1: PROMPT -->
+                    <div id="tab-content-prompt" class="tab-content active">
+                        <p class="text-sm text-slate-300 mb-3">Copie o prompt abaixo e cole em qualquer LLM (ChatGPT, Gemini, DeepSeek, Claude) junto com os arquivos.</p>
+                        
+                        <div class="relative group">
+                            <div class="absolute top-0 right-0 p-2 z-10">
+                                <button onclick="copyPrompt()" class="bg-law-gold hover:bg-law-goldlight text-law-900 text-xs font-bold py-1 px-3 rounded shadow transition flex items-center gap-1">
+                                    <i class="fa-regular fa-copy"></i> Copiar
+                                </button>
+                            </div>
+                            <textarea id="promptArea" readonly class="w-full h-64 bg-law-900 text-slate-300 font-mono text-xs p-4 pt-10 rounded-lg border border-law-700 focus:outline-none resize-none leading-relaxed custom-scrollbar"></textarea>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-3 italic">
+                            <i class="fa-solid fa-circle-info mr-1"></i> Este prompt instrui a IA a agir como um auditor do TED/OAB.
+                        </p>
+                    </div>
+
+                    <!-- TAB 2: AGENTS -->
+                    <div id="tab-content-agents" class="tab-content">
+                        <p class="text-sm text-slate-300 mb-4">Prefere algo pronto? Use nossos agentes pré-configurados que já contêm o prompt e as regras carregadas.</p>
+                        
+                        <div class="space-y-4" id="agents-container">
+                            <!-- Dynamic Agents will be injected here -->
+                        </div>
+
+                        <div class="mt-6 p-4 bg-law-900/50 rounded-lg border border-law-700">
+                            <p class="text-xs text-slate-400">
+                                <i class="fa-solid fa-lock mr-1"></i> Nota: Para usar os agentes, você pode precisar de contas ativas nas respectivas plataformas (ChatGPT Plus ou Gemini Advanced dependendo da disponibilidade).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: KNOWLEDGE SOURCE -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-white text-law-900 p-8 rounded-2xl shadow-xl">
+                        <h3 class="text-2xl font-bold mb-6 flex items-center">
+                            <span class="bg-law-900 text-white w-8 h-8 rounded flex items-center justify-center text-sm mr-3">2</span>
+                            Fonte de Conhecimento
+                        </h3>
+                        
+                        <p class="text-slate-600 mb-6 text-sm">
+                            Se não estiver usando os Agents, <strong>baixe estes documentos</strong>. Eles servirão como a "memória legal" para a IA analisar seu conteúdo.
+                        </p>
+
+                        <div id="files-container" class="space-y-3">
+                            <!-- Dynamic Files will be injected here -->
+                        </div>
+
+                        <button onclick="downloadAll()" class="w-full mt-6 bg-law-900 hover:bg-law-800 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-zipper"></i> Baixar Kit Completo (.zip)
+                        </button>
+                    </div>
+
+                    <!-- Instructions Block -->
+                    <div class="bg-law-gold/10 border border-law-gold/30 p-6 rounded-2xl">
+                        <h4 class="font-bold text-law-gold mb-2 text-sm uppercase">Como executar (Modo Manual):</h4>
+                        <ol class="list-decimal list-inside text-sm text-slate-300 space-y-2">
+                            <li>Baixe o Kit de PDFs acima.</li>
+                            <li>Abra sua IA favorita (Gemini, ChatGPT, DeepSeek...).</li>
+                            <li>Faça o upload dos PDFs para a IA.</li>
+                            <li>Cole o <strong>Prompt Universal</strong> (Aba 1).</li>
+                            <li>Cole o texto/legenda do seu post.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section: Expected Result -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-law-900">Resultado Esperado</h2>
+                <p class="text-slate-600 mt-2">Veja como a IA atua como seu Consultor Jurídico Pessoal.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="chat-bubble shadow-lg">
+                    <div class="flex items-center gap-3 mb-4 border-b border-slate-200 pb-3">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-robot text-green-600"></i>
+                        </div>
+                        <span class="font-bold text-sm text-slate-700">Resposta da IA (Exemplo)</span>
+                    </div>
+                    
+                    <div class="prose prose-sm max-w-none text-slate-700">
+                        <p class="font-bold text-law-900">Habeas Post - Análise de Conformidade</p>
+                        
+                        <!-- Format based on the prompt instructions -->
+                        <div class="mb-4">
+                            <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold">ATENÇÃO</span>
+                        </div>
+
+                        <p><strong>a) Sugestão:</strong> ATENÇÃO</p>
+
+                        <p><strong>b) Análise:</strong> O termo "Consulta Gratuita" fere o princípio de não mercantilização da advocacia. A oferta de serviços gratuitos para captação de clientela é vedada pelo <strong>Art. 39 do Código de Ética e Disciplina</strong>.</p>
+                        
+                        <p><strong>c) Sugestão de Correção:</strong></p>
+                        <div class="p-4 bg-slate-100 rounded border-l-4 border-law-gold italic text-slate-600">
+                            "Agende um horário para entendermos o seu caso e discutirmos seus direitos detalhadamente."
+                        </div>
+
+                        <p class="mt-6 text-xs text-slate-500 italic font-bold text-right border-t pt-2">
+                            O Habeas Post pode cometer erros ou interpretações equivocadas. Esta análise não substitui a consulta oficial ao Tribunal de Ética e Disciplina (TED).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-law-900 text-slate-400 py-12 border-t border-law-800">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <i class="fa-solid fa-scale-balanced text-law-gold text-2xl"></i>
+                <span class="font-serif text-xl font-bold text-white tracking-wide">Habeas Post</span>
+            </div>
+            <p class="text-sm mb-6">Ferramenta auxiliar para advogados. A responsabilidade final pela publicação é sempre do profissional inscrito na OAB.</p>
+            <p class="text-xs">&copy; 2023 Habeas Post. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50"></div>
+
+    <!-- Logic Script -->
+    <script>
+        // --- DATA OBJECT (JSON) ---
+        const habeasData = {
+            "prompt": `Você é a empresa de consultoria de marketing jurídico 'Habeas Post'. Sua função é atuar como um especialista que já trabalhou no TED (Tribunal de Ética e Disciplina da OAB), analisando a conformidade ética e legal de publicações destinadas a redes sociais, propostas por advogados ou escritórios de advocacia, antes que sejam publicadas.
+
+Propósito e Metas:
+* Analisar e classificar rigorosamente o material de marketing jurídico submetido pelo usuário (texto, imagem, vídeo ou conceito), garantindo total aderência ao Provimento 205/2021 da OAB, ao Código de Ética e Disciplina e ao Estatuto da Advocacia.
+* Proteger o usuário de violações éticas que possam levar a processos disciplinares.
+* Fornecer correções e sugestões construtivas que transformem o material inadequado em conteúdo ético, informativo e sóbrio.
+
+Comportamentos e Regras:
+1. **Base de Conhecimento Prioritária:**
+    * Você deve basear todas as suas análises estritamente nos documentos normativos da OAB (Provimento 205/2021, Código de Ética e Estatuto). Se a infração for por omissão (ex: falta de sobriedade), cite o princípio geral.
+    * Sempre inicie a análise!
+
+2. **Formato de Resposta Estrito:**
+    * Sua resposta deve ser estritamente estruturada em três partes, usando a formatação Markdown para destaque, e NADA ALÉM DESSAS TRÊS PARTES (exceto o Aviso de Segurança obrigatório):
+
+    a) **Sugestão:** (RECOMENDADO / NÃO RECOMENDADO / ATENÇÃO).
+        * Use 'RECOMENDADO' se não houver nenhuma violação clara ou interpretativa dos limites éticos e informativos.
+        * Use 'NÃO RECOMENDADO' se houver violação direta de uma norma essencial (ex: promessa de resultado, mercantilização clara, captação ilícita).
+        * Use 'ATENÇÃO' se houver margem para interpretação, a infração for leve ou relacionada apenas ao tom (ex: tom excessivamente informal, uso de cores ou fontes agressivas, falta de sobriedade).
+
+    b) **Análise:** Explique de forma didática e técnica o porquê da classificação. Se houver violação, CITE O ARTIGO, PARÁGRAFO ou ALÍNEA específico do Provimento 205/2021, Código de Ética ou Estatuto. CITE a norma na íntegra ou em essência logo após a referência.
+
+    c) **Sugestão de Correção:** Se o material foi classificado como 'NÃO RECOMENDADO' ou 'ATENÇÃO', reescreva o texto de forma ética, informativa e sóbria, mantendo a intenção original do usuário, mas estritamente dentro das regras. Se 'RECOMENDADO', forneça um pequeno elogio sobre a conformidade ética e informativa do material e sugira uma forma de potencializá-lo dentro dos limites éticos.
+
+3. **Linguagem e Tom:**
+    * Mantenha um tom sóbrio, técnico, formal e estritamente profissional, refletindo a seriedade da regulação jurídica.
+    * Use a língua portuguesa (Português do Brasil) em todas as interações.
+    * Suas respostas devem ser precisas, claras e 100% baseadas em dados normativos citados.
+
+4. **Aviso de Segurança (Obrigatório):**
+    * Em TODAS as suas respostas, sem exceção, você deve incluir o seguinte aviso no final, em negrito e itálico, como um parágrafo separado e final:
+    **_O Habeas Post pode cometer erros ou interpretações equivocadas. Esta análise não substitui a consulta oficial ao Tribunal de Ética e Disciplina (TED)_**`,
+            
+            "agents": [
+                {
+                    "name": "Gemini Gem",
+                    "description": "Versão otimizada para usuários Google.",
+                    "url": "https://gemini.google.com/gem/1Hf4LSMO_HDEnRKq4J-CA3nEdmOrtMNo4?usp=sharing",
+                    "icon": "fa-brands fa-google",
+                    "colorClass": "bg-blue-600 hover:bg-blue-700"
+                },
+                {
+                    "name": "ChatGPT GPT",
+                    "description": "Versão oficial na OpenAI Store.",
+                    "url": "https://chatgpt.com/g/g-p-69347ebcec7c8191bdb7d1867b034472-habeas-post/project",
+                    "icon": "fa-solid fa-robot",
+                    "colorClass": "bg-emerald-600 hover:bg-emerald-700"
+                }
+            ],
+
+            "files": [
+                {
+                    "name": "Provimento 205/2021",
+                    "subtitle": "Marketing Jurídico na OAB",
+                    "icon": "fa-file-pdf",
+                    "color": "text-red-600"
+                },
+                {
+                    "name": "Código de Ética e Disciplina",
+                    "subtitle": "CED OAB",
+                    "icon": "fa-file-pdf",
+                    "color": "text-red-600"
+                },
+                {
+                    "name": "Estatuto da Advocacia",
+                    "subtitle": "Lei 8.906/94",
+                    "icon": "fa-scale-balanced",
+                    "color": "text-law-gold"
+                }
+            ]
+        };
+
+        // --- RENDER FUNCTIONS ---
+
+        // 1. Render Prompt
+        function renderPrompt() {
+            document.getElementById('promptArea').value = habeasData.prompt;
+        }
+
+        // 2. Render Agents
+        function renderAgents() {
+            const container = document.getElementById('agents-container');
+            container.innerHTML = habeasData.agents.map(agent => `
+                <a href="${agent.url}" target="_blank" class="block w-full group">
+                    <div class="flex items-center justify-between p-4 bg-law-900 border border-law-700 rounded-lg group-hover:border-law-gold transition-all shadow-md group-hover:bg-law-800">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white ${agent.colorClass}">
+                                <i class="${agent.icon} text-lg"></i>
+                            </div>
+                            <div class="text-left">
+                                <h5 class="font-bold text-white text-sm group-hover:text-law-gold transition">${agent.name}</h5>
+                                <p class="text-xs text-slate-400">${agent.description}</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-external-link-alt text-slate-500 group-hover:text-law-gold"></i>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // 3. Render Files
+        function renderFiles() {
+            const container = document.getElementById('files-container');
+            container.innerHTML = habeasData.files.map(file => `
+                <div class="flex items-center justify-between p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition group">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-regular ${file.icon} ${file.color} text-xl"></i>
+                        <div>
+                            <h5 class="font-bold text-sm text-law-900">${file.name}</h5>
+                            <p class="text-xs text-slate-500">${file.subtitle}</p>
+                        </div>
+                    </div>
+                    <button onclick="downloadMock('${file.name}')" class="text-law-900 hover:text-law-gold transition">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // --- INTERACTION FUNCTIONS ---
+
+        // Tab Switching Logic
+        function switchTab(tab) {
+            // Hide all content
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            
+            // Reset buttons
+            document.getElementById('tab-btn-prompt').className = "px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors cursor-pointer";
+            document.getElementById('tab-btn-agents').className = "px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors cursor-pointer";
+            
+            // Show selected content & Highlights button
+            document.getElementById(`tab-content-${tab}`).classList.add('active');
+            
+            const activeBtnClass = "px-4 py-2 text-sm font-bold text-law-gold border-b-2 border-law-gold transition-colors cursor-pointer";
+            document.getElementById(`tab-btn-${tab}`).className = activeBtnClass;
+        }
+
+        // Copy to Clipboard
+        function copyPrompt() {
+            const promptArea = document.getElementById('promptArea');
+            promptArea.select();
+            promptArea.setSelectionRange(0, 99999); // Mobile
+            
+            navigator.clipboard.writeText(promptArea.value).then(() => {
+                showToast("Prompt Universal copiado! ✅");
+            }).catch(err => {
+                showToast("Erro ao copiar. Tente manual. ❌");
+            });
+        }
+
+        // Mock Download Functions
+        function downloadMock(docName) {
+            showToast(`Iniciando download de: ${docName}... 📄`);
+        }
+
+        function downloadAll() {
+            showToast("Gerando arquivo .ZIP com todas as normas... 📦");
+            setTimeout(() => {
+                showToast("Download do Kit Habeas Post iniciado! 🚀");
+            }, 1500);
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            toast.className = "toast bg-law-900 text-white px-6 py-4 rounded-lg shadow-xl border-l-4 border-law-gold mb-3 flex items-center gap-3 min-w-[300px]";
+            toast.innerHTML = `
+                <i class="fa-solid fa-bell text-law-gold"></i>
+                <span class="font-medium text-sm">${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(100%)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // --- INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderPrompt();
+            renderAgents();
+            renderFiles();
+        });
+
+    </script>
+</body>
+</html>
