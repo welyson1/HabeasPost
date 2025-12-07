@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habeas Post | Tutorial Rápido</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        law: {
+                            950: '#020617',
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            gold: '#cca43b',
+                            goldlight: '#e5c975',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <nav class="bg-law-900 text-white py-4 shadow-lg border-b border-law-800">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-scale-balanced text-law-gold text-2xl"></i>
+                <span class="font-serif text-xl font-bold tracking-wide">Habeas Post</span>
+            </div>
+            <a href="index.html" class="text-sm text-slate-300 hover:text-white transition">
+                <i class="fa-solid fa-arrow-left mr-1"></i> Voltar ao início
+            </a>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto px-6 py-12 max-w-5xl">
+        
+        <div class="text-center mb-16">
+            <span class="bg-law-100 text-law-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-law-gold/30">Tutorial de Uso</span>
+            <h1 class="font-serif text-4xl md:text-5xl font-bold mt-4 text-law-900">Teste a Conformidade Ética</h1>
+            <p class="text-slate-600 mt-4 text-lg max-w-2xl mx-auto">
+                Siga os dois passos abaixo para ver a IA analisando uma infração ética simulada.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-stretch relative">
+            
+            <div class="hidden md:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-law-gold text-4xl">
+                <i class="fa-solid fa-circle-arrow-right bg-white rounded-full"></i>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden flex flex-col">
+                <div class="bg-slate-100 p-4 border-b border-slate-200 flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-law-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold font-serif">1</span>
+                        <h2 class="font-bold text-law-900">Baixe o Exemplo</h2>
+                    </div>
+                    <span class="text-xs text-slate-500 font-medium">post1.png</span>
+                </div>
+                
+                <div class="p-8 flex flex-col items-center justify-center flex-grow bg-slate-50 relative group">
+                    <div class="relative shadow-lg rounded-lg overflow-hidden max-w-[250px] transform group-hover:scale-105 transition duration-300">
+                        <img src="post1.png" alt="Exemplo de Post Jurídico" class="w-full h-auto" id="exampleImage">
+                        
+                        <div class="absolute inset-0 bg-law-900/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                            <p class="text-white text-xs font-bold uppercase tracking-widest">Exemplo de Infração</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 border-t border-slate-100 bg-white z-10">
+                    <p class="text-sm text-slate-500 mb-4 text-center">Salve esta imagem ou copie para a área de transferência.</p>
+                    <a href="post1.png" download="post_teste_habeas.png" class="block w-full bg-slate-800 hover:bg-law-900 text-white font-bold py-3 rounded-xl transition text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <i class="fa-solid fa-download mr-2"></i> Baixar Imagem
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl border border-law-gold overflow-hidden flex flex-col relative">
+                <div class="absolute top-0 right-0 w-20 h-20 bg-law-gold/10 rounded-bl-full z-0"></div>
+
+                <div class="bg-law-50 p-4 border-b border-slate-200 flex justify-between items-center relative z-10">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-law-gold text-law-900 w-8 h-8 rounded-full flex items-center justify-center font-bold font-serif">2</span>
+                        <h2 class="font-bold text-law-900">Envie para Análise</h2>
+                    </div>
+                    <span class="text-xs text-law-800 font-medium">IA Especialista</span>
+                </div>
+                
+                <div class="p-8 flex flex-col items-center justify-center flex-grow bg-white relative z-10 text-center">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6 animate-pulse">
+                        <i class="fa-solid fa-robot text-4xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-law-900 mb-2">O Agente está pronto</h3>
+                    <p class="text-slate-500 text-sm max-w-xs mx-auto">
+                        Abra o chat, clique no ícone de "clipe" ou "imagem" e envie o arquivo que você acabou de baixar.
+                    </p>
+                </div>
+
+                <div class="p-6 border-t border-slate-100 bg-white z-10">
+                    <a href="https://chatgpt.com/g/g-69357cf469a48191a52fe90822bb12d9-habes-post" target="_blank" class="block w-full bg-gradient-to-r from-law-gold to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-law-950 font-bold py-3 rounded-xl transition text-center shadow-lg hover:shadow-glow transform hover:-translate-y-1">
+                        Abrir Agente e Enviar <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                    </a>
+                    <p class="text-xs text-center text-slate-400 mt-3">Requer conta no ChatGPT (Plus ou Gratuito)</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-12 bg-blue-50 border border-blue-100 rounded-xl p-6 flex flex-col md:flex-row items-center gap-6 max-w-4xl mx-auto">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 text-blue-600">
+                <i class="fa-regular fa-lightbulb text-xl"></i>
+            </div>
+            <div class="text-center md:text-left flex-grow">
+                <h4 class="font-bold text-blue-900">O que vai acontecer?</h4>
+                <p class="text-sm text-blue-800/80 mt-1">
+                    A IA detectará que a imagem contém "promessa de resultado" ou "elementos ostentatórios" (dependendo da imagem <code>post1.png</code>) e citará o artigo exato do código de ética violado.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-law-950 py-8 border-t border-law-800 text-center text-slate-500 text-sm">
+        <p>&copy; 2023 Habeas Post. Ferramenta Educativa.</p>
+    </footer>
+
+    <script>
+        // Apenas para garantir que o layout fique bonito se a imagem não carregar imediatamente
+        const img = document.getElementById('exampleImage');
+        img.onerror = function() {
+            // Se post1.png não for encontrada (ex: testando local sem o arquivo), usa um placeholder
+            this.src = 'https://placehold.co/400x400/1e293b/cca43b?text=Imagem+post1.png';
+        };
+    </script>
+</body>
+</html>
