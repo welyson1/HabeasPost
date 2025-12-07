@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habeas Post | Tutorial Rápido</title>
+    <title>Habeas Post | Tutorial Agent</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -36,14 +36,11 @@
 <body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
     <nav class="bg-law-900 text-white py-4 shadow-lg border-b border-law-800">
-        <div class="container mx-auto px-6 flex justify-between items-center">
+        <div class="container mx-auto px-6 flex justify-center md:justify-start items-center">
             <div class="flex items-center gap-3">
                 <i class="fa-solid fa-scale-balanced text-law-gold text-2xl"></i>
                 <span class="font-serif text-xl font-bold tracking-wide">Habeas Post</span>
             </div>
-            <a href="index.html" class="text-sm text-slate-300 hover:text-white transition">
-                <i class="fa-solid fa-arrow-left mr-1"></i> Voltar
-            </a>
         </div>
     </nav>
 
@@ -51,15 +48,15 @@
         
         <div class="text-center mb-12">
             <span class="bg-law-100 text-law-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-law-gold/30">Tutorial Prático</span>
-            <h1 class="font-serif text-3xl md:text-5xl font-bold mt-4 text-law-900">Teste de Conformidade em 2 Minutos</h1>
+            <h1 class="font-serif text-3xl md:text-5xl font-bold mt-4 text-law-900">Teste o Agent Jurídico</h1>
             <p class="text-slate-600 mt-4 text-lg max-w-2xl mx-auto">
-                Baixe o exemplo e veja a IA identificar infrações éticas na prática.
+                Baixe o arquivo de exemplo e veja o <strong>Agent</strong> identificar infrações éticas na prática.
             </p>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-8 items-stretch relative">
             
-            <div class="hidden lg:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 text-law-gold text-4xl bg-white rounded-full border-4 border-slate-50">
+            <div class="hidden lg:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 text-law-gold text-4xl bg-white rounded-full border-4 border-slate-50 shadow-sm">
                 <i class="fa-solid fa-circle-arrow-right"></i>
             </div>
 
@@ -67,24 +64,30 @@
                 <div class="bg-slate-100 p-4 border-b border-slate-200 flex justify-between items-center">
                     <div class="flex items-center gap-2">
                         <span class="bg-law-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold font-serif">1</span>
-                        <h2 class="font-bold text-law-900">Obter Imagem de Teste</h2>
+                        <h2 class="font-bold text-law-900">Baixar Exemplo</h2>
                     </div>
                 </div>
                 
-                <div class="p-8 flex flex-col items-center justify-center flex-grow bg-slate-50/50">
-                    <p class="text-slate-500 mb-6 text-center text-sm">Esta imagem contém erros propositais (promessa de resultado) para testar a IA.</p>
+                <div class="relative w-full h-64 overflow-hidden bg-slate-200 group">
+                    <img src="post1.jpeg" alt="Preview Oculto" class="w-full h-full object-cover object-top opacity-80 blur-[2px] transition duration-700 group-hover:scale-105" id="exampleImage">
                     
-                    <div class="relative shadow-md rounded-lg overflow-hidden max-w-[280px] border border-slate-200 group cursor-pointer">
-                        <img src="post1.png" alt="Exemplo de Post Jurídico" class="w-full h-auto" id="exampleImage">
-                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                            <span class="text-white font-bold text-sm"><i class="fa-solid fa-eye"></i> Visualizar</span>
+                    <div class="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent"></div>
+                    
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-white/90 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-slate-200 flex items-center gap-3">
+                            <i class="fa-regular fa-image text-law-gold text-xl"></i>
+                            <span class="font-bold text-sm text-law-900">post1.jpeg</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="p-6 border-t border-slate-100 bg-white">
-                    <a href="post1.png" download="post_teste_habeas.png" class="flex items-center justify-center gap-2 w-full bg-slate-800 hover:bg-law-900 text-white font-bold py-4 rounded-xl transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fa-solid fa-download"></i> Baixar Arquivo
+                <div class="p-8 flex flex-col justify-end flex-grow bg-white relative z-10">
+                    <p class="text-slate-500 mb-6 text-center text-sm">
+                        O arquivo contém um post com "promessa de resultado". Baixe para enviar ao Agent.
+                    </p>
+                    
+                    <a href="post1.jpeg" download="post1.jpeg" class="flex items-center justify-center gap-2 w-full bg-slate-800 hover:bg-law-900 text-white font-bold py-4 rounded-xl transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <i class="fa-solid fa-download"></i> Baixar Imagem
                     </a>
                 </div>
             </div>
@@ -93,9 +96,9 @@
                 <div class="bg-law-50 p-4 border-b border-slate-200 flex justify-between items-center">
                     <div class="flex items-center gap-2">
                         <span class="bg-law-gold text-law-900 w-8 h-8 rounded-full flex items-center justify-center font-bold font-serif">2</span>
-                        <h2 class="font-bold text-law-900">Analisar com IA</h2>
+                        <h2 class="font-bold text-law-900">Consultar Agent</h2>
                     </div>
-                    <span class="text-xs font-bold text-law-800 bg-law-200 px-2 py-1 rounded">Escolha sua IA</span>
+                    <span class="text-xs font-bold text-law-800 bg-law-200 px-2 py-1 rounded">IA Ativa</span>
                 </div>
                 
                 <div class="p-6 flex-grow flex flex-col justify-between">
@@ -111,7 +114,7 @@
                                 <i class="fa-solid fa-arrow-right text-law-gold"></i>
                                 
                                 <div class="bg-white border border-slate-300 rounded-full px-4 py-2 w-40 flex items-center shadow-sm">
-                                    <span class="text-[10px] text-slate-400">Anexar post...</span>
+                                    <span class="text-[10px] text-slate-400">Anexar post1.jpeg...</span>
                                     <div class="ml-auto w-5 h-5 bg-law-900 rounded-full flex items-center justify-center">
                                         <i class="fa-solid fa-arrow-up text-white text-[8px]"></i>
                                     </div>
@@ -119,8 +122,8 @@
                             </div>
                             
                             <div class="text-center">
-                                <div class="text-sm font-bold text-law-900">Como fazer?</div>
-                                <p class="text-xs text-slate-500">Abra o Agente abaixo, clique no "Clipe/Imagem" e envie o arquivo.</p>
+                                <div class="text-sm font-bold text-law-900">Arraste e Solte</div>
+                                <p class="text-xs text-slate-500">Abra o Agent abaixo e anexe a imagem baixada.</p>
                             </div>
                         </div>
                     </div>
@@ -128,14 +131,14 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <a href="https://chatgpt.com/g/g-69357cf469a48191a52fe90822bb12d9-habes-post" target="_blank" class="group relative bg-emerald-600 hover:bg-emerald-700 text-white p-4 rounded-xl transition text-center shadow-md hover:shadow-lg flex flex-col items-center gap-2">
                             <i class="fa-solid fa-robot text-2xl mb-1 group-hover:scale-110 transition-transform"></i>
-                            <span class="font-bold">Usar ChatGPT</span>
-                            <span class="text-[10px] opacity-80 font-light">Requer conta OpenAI</span>
+                            <span class="font-bold">Agent (ChatGPT)</span>
+                            <span class="text-[10px] opacity-80 font-light">Recomendado</span>
                         </a>
 
                         <a href="https://gemini.google.com/gem/1Hf4LSMO_HDEnRKq4J-CA3nEdmOrtMNo4?usp=sharing" target="_blank" class="group relative bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-xl transition text-center shadow-md hover:shadow-lg flex flex-col items-center gap-2">
                             <i class="fa-brands fa-google text-2xl mb-1 group-hover:scale-110 transition-transform"></i>
-                            <span class="font-bold">Usar Gemini</span>
-                            <span class="text-[10px] opacity-80 font-light">Requer conta Google</span>
+                            <span class="font-bold">Agent (Gemini)</span>
+                            <span class="text-[10px] opacity-80 font-light">Alternativo</span>
                         </a>
                     </div>
                 </div>
@@ -145,8 +148,8 @@
 
         <div class="mt-10 text-center">
             <p class="text-slate-500 text-sm italic">
-                <i class="fa-solid fa-circle-info text-law-gold mr-1"></i>
-                Ao enviar a imagem, a IA deverá alertar sobre "Promessa de Resultado" ou "Mercantilização" com base no Provimento 205/2021.
+                <i class="fa-solid fa-check-circle text-green-500 mr-1"></i>
+                O Agent analisará a imagem com base no Provimento 205/2021 da OAB.
             </p>
         </div>
 
@@ -159,7 +162,8 @@
     <script>
         const img = document.getElementById('exampleImage');
         img.onerror = function() {
-            this.src = 'post1.jpeg';
+            // Placeholder para não quebrar o layout se a imagem faltar
+            this.src = 'https://placehold.co/600x400/1e293b/cca43b?text=post1.jpeg';
         };
     </script>
 </body>
