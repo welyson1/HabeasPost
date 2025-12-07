@@ -119,15 +119,14 @@
     <nav class="bg-law-900/95 backdrop-blur-md text-white fixed w-full z-50 shadow-xl border-b border-law-800">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <!-- LOGO FIX: Changed w-10 h-10 to h-10 w-auto to prevent squashing -->
-                <img src="logo_hp.png" alt="Habeas Post Logo" class="h-10 w-auto rounded-lg shadow-glow">
+                <img src="logo_hp.png" alt="Habeas Post Logo" class="w-10 h-10 rounded-lg shadow-glow" onerror="this.onerror=null; this.src='https://placehold.co/40x40/cca43b/0f172a?text=HP'">
                 <span class="font-serif text-xl font-bold tracking-wide">Habeas Post</span>
             </div>
             <div class="hidden md:flex gap-8 text-sm font-medium items-center">
                 <a href="#problema" class="text-slate-300 hover:text-law-gold transition duration-300">O Problema</a>
                 <a href="#solucao" class="text-slate-300 hover:text-law-gold transition duration-300">Como Funciona</a>
                 <a href="#resultados" class="text-slate-300 hover:text-law-gold transition duration-300">Exemplos</a>
-                <a href="#ferramenta" class="bg-gradient-to-r from-law-gold to-law-golddark text-white px-6 py-2.5 rounded-full hover:shadow-glow transition transform hover:-translate-y-0.5 font-bold text-xs uppercase tracking-wider">Começar Agora</a>
+                <a href="#ferramenta" class="bg-gradient-to-r from-law-gold to-law-goldlight text-white px-6 py-2.5 rounded-full hover:shadow-glow transition transform hover:-translate-y-0.5 font-bold text-xs uppercase tracking-wider">Começar Agora</a>
             </div>
         </div>
     </nav>
@@ -259,7 +258,7 @@
     <div id="ferramenta" class="bg-law-900 text-white py-24 relative overflow-hidden">
         <!-- Decoration -->
         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-law-gold to-transparent"></div>
-        <!-- BACKGROUND SHAPE REMOVED HERE (The large blur orb at the bottom right) -->
+        <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-law-gold/10 rounded-full blur-3xl"></div>
 
         <div class="container mx-auto px-6 relative z-10 max-w-4xl">
             <div class="text-center mb-10">
@@ -327,7 +326,8 @@
 
                         <!-- Content for MANUAL Mode -->
                         <div id="content-manual" class="hidden">
-                            <div class="grid lg:grid-cols-2 gap-8 h-full">
+                            <!-- Fixed: Removed generic h-full for lg:h-full to allow mobile stacking -->
+                            <div class="grid lg:grid-cols-2 gap-8 lg:h-full">
                                 <!-- Files Column -->
                                 <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                                     <h4 class="font-bold text-law-900 mb-4 flex items-center gap-2">
@@ -351,7 +351,8 @@
                                         </h4>
                                         <button onclick="copyPrompt()" class="text-xs bg-law-gold hover:bg-law-goldlight text-law-900 font-bold px-2 py-1 rounded">Copiar</button>
                                     </div>
-                                    <textarea id="promptArea" readonly class="w-full flex-1 bg-slate-50 text-slate-600 font-mono text-xs p-3 rounded border border-slate-200 focus:outline-none resize-none mb-2"></textarea>
+                                    <!-- Fixed: Added h-64 for mobile to prevent collapse, lg:h-auto and lg:flex-1 for desktop -->
+                                    <textarea id="promptArea" readonly class="w-full h-64 lg:h-auto lg:flex-1 bg-slate-50 text-slate-600 font-mono text-xs p-3 rounded border border-slate-200 focus:outline-none resize-none mb-2"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -363,40 +364,28 @@
                             <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">
                                 <i class="fa-solid fa-check"></i>
                             </div>
-                            <h3 class="text-2xl font-bold text-law-900 mb-2">Tudo pronto para a análise!</h3>
+                            <h3 class="text-2xl font-bold text-law-900 mb-6">Tudo pronto para a análise!</h3>
                             
-                            <!-- Single Instruction -->
-                            <p class="text-lg text-slate-600 mb-8">
-                                Agora é simples: abra a ferramenta e envie seu texto ou imagem para receber a auditoria jurídica instantânea.
-                            </p>
-
-                            <!-- VISUAL AID: Drag & Drop Simulation -->
-                            <div class="relative overflow-hidden rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 p-8 group hover:border-law-gold transition-colors duration-300">
-                                <div class="flex flex-col items-center justify-center gap-4 relative z-10">
-                                    <!-- Animation Container -->
-                                    <div class="flex items-center gap-4 opacity-60 group-hover:opacity-100 transition-opacity">
-                                        <!-- Fake File -->
-                                        <div class="w-12 h-16 bg-white border border-slate-200 shadow-sm rounded flex flex-col items-center justify-center gap-1 animate-bounce" style="animation-duration: 2s;">
-                                            <i class="fa-regular fa-image text-slate-400"></i>
-                                            <div class="w-8 h-1 bg-slate-200 rounded"></div>
-                                        </div>
-                                        
-                                        <i class="fa-solid fa-arrow-right text-law-gold"></i>
-                                        
-                                        <!-- Fake Chat Input -->
-                                        <div class="bg-white border border-slate-300 rounded-full px-4 py-2 w-48 flex items-center shadow-sm">
-                                            <span class="text-xs text-slate-400">Cole seu post aqui...</span>
-                                            <div class="ml-auto w-6 h-6 bg-law-900 rounded-full flex items-center justify-center">
-                                                <i class="fa-solid fa-arrow-up text-white text-[10px]"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="text-sm font-bold text-law-900">
-                                        É só arrastar ou colar no Chat!
-                                    </div>
-                                    <p class="text-xs text-slate-500">O Agente fará a análise jurídica automaticamente.</p>
-                                </div>
+                            <div class="bg-white p-6 rounded-xl border border-slate-200 text-left shadow-sm">
+                                <h4 class="font-bold text-law-900 mb-4 border-b pb-2">Checklist de Execução:</h4>
+                                <ul class="space-y-4 text-slate-600">
+                                    <li class="flex gap-3">
+                                        <i class="fa-solid fa-1 text-law-gold mt-1"></i>
+                                        <span>Abra sua ferramenta de IA (ChatGPT, Gemini, etc).</span>
+                                    </li>
+                                    <li class="flex gap-3" id="checklist-manual-files">
+                                        <i class="fa-solid fa-2 text-law-gold mt-1"></i>
+                                        <span><strong>(Manual)</strong> Anexe os PDFs baixados no passo anterior.</span>
+                                    </li>
+                                    <li class="flex gap-3" id="checklist-manual-prompt">
+                                        <i class="fa-solid fa-3 text-law-gold mt-1"></i>
+                                        <span><strong>(Manual)</strong> Cole o Prompt Mestre que você copiou.</span>
+                                    </li>
+                                    <li class="flex gap-3">
+                                        <i class="fa-solid fa-arrow-right text-law-gold mt-1"></i>
+                                        <span><strong>Finalmente:</strong> Cole seu texto, descrição, roteiro ou anexe a imagem do seu post para a IA analisar.</span>
+                                    </li>
+                                </ul>
                             </div>
                             
                             <p class="mt-8 text-sm text-slate-500 italic">"A conformidade é a melhor estratégia de marketing."</p>
@@ -428,10 +417,10 @@
             </div>
 
             <!-- Gallery Interface -->
-            <div class="max-w-5xl mx-auto bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-800 h-[600px] relative">
+            <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200 flex flex-col lg:flex-row h-[700px] lg:h-[600px]">
                 
-                <!-- Image Viewer (Full Width) -->
-                <div class="w-full h-full relative group overflow-hidden flex flex-col">
+                <!-- Image Viewer (Left/Top) -->
+                <div class="lg:w-2/3 bg-slate-900 relative group overflow-hidden flex flex-col">
                     <!-- Toolbar -->
                     <div class="absolute top-4 left-4 z-20 flex gap-2">
                         <button onclick="adjustZoom(0.1)" class="w-8 h-8 bg-black/50 text-white rounded hover:bg-black/80 backdrop-blur transition flex items-center justify-center" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
@@ -444,18 +433,32 @@
                     </div>
 
                     <!-- Main Image Container -->
-                    <div id="gallery-viewport" class="gallery-container w-full h-full flex items-center justify-center relative bg-slate-900">
+                    <div id="gallery-viewport" class="gallery-container w-full h-full flex items-center justify-center relative">
                         <img id="main-image" src="https://placehold.co/800x600/1e293b/FFF?text=Carregando+Exemplo..." alt="Análise" class="gallery-image shadow-2xl select-none" draggable="false">
                     </div>
+                </div>
 
-                    <!-- Thumbnails Overlay (Bottom Center) -->
-                    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20">
-                        <div class="bg-black/60 backdrop-blur-md p-2 rounded-2xl border border-white/10 flex gap-2" id="thumbnails-container">
+                <!-- Sidebar / Analysis Info (Right/Bottom) -->
+                <div class="lg:w-1/3 bg-white flex flex-col border-l border-slate-200">
+                    <!-- Text Content -->
+                    <div class="p-6 flex-1 overflow-y-auto custom-scrollbar">
+                        <div id="analysis-content">
+                            <!-- Dynamic Content Injected Here -->
+                            <div class="animate-pulse space-y-4">
+                                <div class="h-4 bg-slate-200 rounded w-3/4"></div>
+                                <div class="h-4 bg-slate-200 rounded w-1/2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thumbnails -->
+                    <div class="p-4 bg-slate-50 border-t border-slate-200">
+                        <p class="text-xs font-bold text-slate-500 uppercase mb-3">Selecione um caso:</p>
+                        <div class="flex gap-3 overflow-x-auto pb-2 custom-scrollbar" id="thumbnails-container">
                             <!-- Thumbnails injected via JS -->
                         </div>
                     </div>
                 </div>
-
             </div>
 
         </div>
@@ -466,8 +469,7 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-10">
                 <div class="flex items-center gap-3 mb-6 md:mb-0">
-                    <!-- LOGO FIX: Changed w-10 h-10 to h-10 w-auto -->
-                    <img src="logo_hp.png" alt="Habeas Post Logo" class="h-10 w-auto rounded">
+                    <img src="logo_hp.png" alt="Habeas Post Logo" class="w-10 h-10 rounded" onerror="this.onerror=null; this.src='https://placehold.co/40x40/cca43b/0f172a?text=HP'">
                     <span class="font-serif text-2xl font-bold text-white tracking-wide">Habeas Post</span>
                 </div>
                 <div class="flex gap-6">
@@ -493,31 +495,38 @@
     <script>
         // --- DATA OBJECT (JSON) ---
         const habeasData = {
-            "prompt": `Você é a empresa de consultoria de marketing jurídico 'Habeas Post'. Sua função é atuar como um especialista que já trabalhou no TED (Tribunal de Ética e Disciplina da OAB), analisando a conformidade ética e legal de publicações destinadas a redes sociais, propostas por advogados ou escritórios de advocacia, antes que sejam publicadas. Conteúdos que sejam da área juridica e que tenham um formato de publicação de rede social, qualquer coisa alem disso responda com uma mensagem negando.
+            "prompt": `Você é a empresa de consultoria de marketing jurídico 'Habeas Post'. Sua função é atuar como um especialista que já trabalhou no TED (Tribunal de Ética e Disciplina da OAB), analisando a conformidade ética e legal de publicações destinadas a redes sociais, propostas por advogados ou escritórios de advocacia, antes que sejam publicadas.
 
 Propósito e Metas:
 * Analisar e classificar rigorosamente o material de marketing jurídico submetido pelo usuário (texto, imagem, vídeo ou conceito), garantindo total aderência ao Provimento 205/2021 da OAB, ao Código de Ética e Disciplina e ao Estatuto da Advocacia.
 * Proteger o usuário de violações éticas que possam levar a processos disciplinares.
 * Fornecer correções e sugestões construtivas que transformem o material inadequado em conteúdo ético, informativo e sóbrio.
+
 Comportamentos e Regras:
-1. Base de Conhecimento Prioritária:
+1. **Base de Conhecimento Prioritária:**
     * Você deve basear todas as suas análises estritamente nos documentos normativos da OAB (Provimento 205/2021, Código de Ética e Estatuto). Se a infração for por omissão (ex: falta de sobriedade), cite o princípio geral.
     * Sempre inicie a análise!
-2. Formato de Resposta Estrito:
-    * Sua resposta deve ser estruturada em três partes, usando a formatação Markdown para destaque, e NADA ALÉM DESSAS TRÊS PARTES (exceto o Aviso de Segurança obrigatório), não faça afirmações de violações nas análise, use palavras como por exemplo, possivel violação; eventual violação; :
-    a) Sugestão: (RECOMENDADO / NÃO RECOMENDADO / ATENÇÃO).
+
+2. **Formato de Resposta Estrito:**
+    * Sua resposta deve ser estritamente estruturada em três partes, usando a formatação Markdown para destaque, e NADA ALÉM DESSAS TRÊS PARTES (exceto o Aviso de Segurança obrigatório):
+
+    a) **Sugestão:** (RECOMENDADO / NÃO RECOMENDADO / ATENÇÃO).
         * Use 'RECOMENDADO' se não houver nenhuma violação clara ou interpretativa dos limites éticos e informativos.
         * Use 'NÃO RECOMENDADO' se houver violação direta de uma norma essencial (ex: promessa de resultado, mercantilização clara, captação ilícita).
         * Use 'ATENÇÃO' se houver margem para interpretação, a infração for leve ou relacionada apenas ao tom (ex: tom excessivamente informal, uso de cores ou fontes agressivas, falta de sobriedade).
-    b) Análise: Explique de forma didática e técnica o porquê da classificação. Se houver violação, CITE O ARTIGO, PARÁGRAFO ou ALÍNEA específico do Provimento 205/2021, Código de Ética ou Estatuto. CITE a norma na íntegra ou em essência logo após a referência.
-    c) Sugestão de Correção: Se o material foi classificado como 'NÃO RECOMENDADO' ou 'ATENÇÃO', reescreva o texto de forma ética, informativa e sóbria, mantendo a intenção original do usuário, mas estritamente dentro das regras. Se 'RECOMENDADO', forneça um pequeno elogio sobre a conformidade ética e informativa do material e sugira uma forma de potencializá-lo dentro dos limites éticos.
-3. Linguagem e Tom:
+
+    b) **Análise:** Explique de forma didática e técnica o porquê da classificação. Se houver violação, CITE O ARTIGO, PARÁGRAFO ou ALÍNEA específico do Provimento 205/2021, Código de Ética ou Estatuto. CITE a norma na íntegra ou em essência logo após a referência.
+
+    c) **Sugestão de Correção:** Se o material foi classificado como 'NÃO RECOMENDADO' ou 'ATENÇÃO', reescreva o texto de forma ética, informativa e sóbria, mantendo a intenção original do usuário, mas estritamente dentro das regras. Se 'RECOMENDADO', forneça um pequeno elogio sobre a conformidade ética e informativa do material e sugira uma forma de potencializá-lo dentro dos limites éticos.
+
+3. **Linguagem e Tom:**
     * Mantenha um tom sóbrio, técnico, formal e estritamente profissional, refletindo a seriedade da regulação jurídica.
     * Use a língua portuguesa (Português do Brasil) em todas as interações.
     * Suas respostas devem ser precisas, claras e 100% baseadas em dados normativos citados.
-4. Aviso de Segurança (Obrigatório):
+
+4. **Aviso de Segurança (Obrigatório):**
     * Em TODAS as suas respostas, sem exceção, você deve incluir o seguinte aviso no final, em negrito e itálico, como um parágrafo separado e final:
-    **_O Habeas Post pode cometer erros ou interpretações equivocadas. Esta análise não substitui a consulta oficial a Comissão de Fiscalização da OABPR ou ao Tribunal de Ética e Disciplina (TED)_**`,
+    **_O Habeas Post pode cometer erros ou interpretações equivocadas. Esta análise não substitui a consulta oficial ao Tribunal de Ética e Disciplina (TED)_**`,
             
             "agents": [
                 {
@@ -741,11 +750,11 @@ Comportamentos e Regras:
         function initGallery() {
             const thumbsContainer = document.getElementById('thumbnails-container');
             
-            // Render Thumbnails (Updated for Overlay style)
+            // Render Thumbnails
             thumbsContainer.innerHTML = habeasData.gallery.map((item, index) => `
-                <div onclick="loadGalleryItem(${index})" class="w-16 h-16 rounded-lg overflow-hidden border-2 border-transparent hover:border-law-gold cursor-pointer transition relative group shadow-lg">
+                <div onclick="loadGalleryItem(${index})" class="min-w-[80px] w-20 h-20 rounded-lg overflow-hidden border-2 border-slate-200 hover:border-law-gold cursor-pointer transition relative group">
                     <img src="${item.image}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/30 group-hover:bg-transparent transition"></div>
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
                 </div>
             `).join('');
 
@@ -762,22 +771,31 @@ Comportamentos e Regras:
 
         function loadGalleryItem(index) {
             const item = habeasData.gallery[index];
+            const contentDiv = document.getElementById('analysis-content');
             
             // Update Main Image
             mainImage.src = item.image;
             resetZoom(); // Reset view when changing image
+
+            // Update Content Info
+            contentDiv.innerHTML = `
+                <div class="mb-4">
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${item.statusColor}">${item.status}</span>
+                </div>
+                <h4 class="text-xl font-bold text-law-900 mb-2">${item.title}</h4>
+                <div class="prose prose-sm text-slate-600">
+                    <p class="mb-4"><strong>Análise:</strong> ${item.description}</p>
+                    <div class="bg-slate-50 border-l-4 border-law-gold p-4 rounded-r">
+                        <p class="text-xs font-bold text-law-900 uppercase mb-1">Sugestão:</p>
+                        <p class="italic text-slate-700">"${item.correction}"</p>
+                    </div>
+                </div>
+            `;
             
-            // Highlight active thumbnail
-            const thumbs = document.getElementById('thumbnails-container').children;
-            for (let i = 0; i < thumbs.length; i++) {
-                if (i === index) {
-                    thumbs[i].classList.add('border-law-gold');
-                    thumbs[i].classList.remove('border-transparent');
-                } else {
-                    thumbs[i].classList.remove('border-law-gold');
-                    thumbs[i].classList.add('border-transparent');
-                }
-            }
+            // Trigger simple animation
+            contentDiv.classList.remove('opacity-0');
+            contentDiv.classList.add('opacity-0');
+            setTimeout(() => contentDiv.classList.remove('opacity-0'), 50);
         }
 
         // Zoom Functions
