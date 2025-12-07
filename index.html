@@ -94,17 +94,22 @@
             animation: slideIn 0.3s ease-out forwards;
         }
         
-        /* Tab Animations */
-        .tab-content {
+        /* Wizard Animations */
+        .wizard-step {
             display: none;
-            animation: fadeIn 0.4s ease-in-out;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.4s ease-in-out;
         }
-        .tab-content.active {
+        .wizard-step.active {
             display: block;
+            opacity: 1;
+            transform: translateX(0);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        /* Progress Bar Animation */
+        .progress-fill {
+            transition: width 0.5s ease-in-out;
         }
     </style>
 </head>
@@ -114,9 +119,7 @@
     <nav class="bg-law-900/95 backdrop-blur-md text-white fixed w-full z-50 shadow-xl border-b border-law-800">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-law-gold rounded-lg flex items-center justify-center text-law-900 shadow-glow">
-                    <i class="fa-solid fa-scale-balanced text-xl"></i>
-                </div>
+                <img src="logo_hp.png" alt="Habeas Post Logo" class="w-10 h-10 rounded-lg shadow-glow">
                 <span class="font-serif text-xl font-bold tracking-wide">Habeas Post</span>
             </div>
             <div class="hidden md:flex gap-8 text-sm font-medium items-center">
@@ -214,38 +217,20 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                
                 <!-- Option A: Agents -->
                 <div class="bg-white p-10 rounded-3xl shadow-lg border border-slate-200 hover:border-law-gold transition duration-300 relative group overflow-hidden">
                     <div class="absolute top-0 left-0 w-2 h-full bg-law-gold"></div>
                     <div class="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition transform group-hover:scale-110">
                         <i class="fa-solid fa-robot text-9xl text-law-900"></i>
                     </div>
-                    
                     <div class="relative z-10">
                         <div class="inline-block bg-law-gold text-law-900 font-bold px-4 py-1.5 rounded-full text-xs mb-6 shadow-sm">OPÇÃO A (Recomendada)</div>
-                        <h3 class="text-2xl font-bold text-law-900 mb-4 flex items-center gap-3">
-                            Usar Agentes Prontos
-                            <i class="fa-solid fa-circle-check text-green-500 text-lg"></i>
-                        </h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed h-20">
-                            Acesse nossos <strong>"GPTs" customizados</strong> que já possuem todas as leis (Estatuto, CED, Provimentos) pré-carregadas na memória. É clicar e usar.
-                        </p>
-                        
-                        <div class="space-y-3 mb-8">
-                            <div class="flex items-center gap-3 text-sm text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
-                                <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 flex-shrink-0"><i class="fa-solid fa-bolt"></i></div>
-                                <span>Zero configuração necessária</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
-                                <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 flex-shrink-0"><i class="fa-solid fa-brain"></i></div>
-                                <span>Prompt de engenharia avançada embutido</span>
-                            </div>
-                        </div>
-
-                        <a href="#ferramenta" onclick="switchTab('agents')" class="inline-block w-full text-center bg-law-900 text-white font-bold py-4 rounded-xl hover:bg-law-800 transition shadow-lg">
-                            Acessar Agentes
-                        </a>
+                        <h3 class="text-2xl font-bold text-law-900 mb-4 flex items-center gap-3">Usar Agentes Prontos <i class="fa-solid fa-circle-check text-green-500 text-lg"></i></h3>
+                        <p class="text-slate-600 mb-8 leading-relaxed h-20">Acesse nossos <strong>"GPTs" customizados</strong> que já possuem todas as leis pré-carregadas. É clicar e usar.</p>
+                        <ul class="text-sm text-slate-500 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Zero configuração.</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Prompt embutido.</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -255,144 +240,167 @@
                     <div class="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition transform group-hover:scale-110">
                         <i class="fa-solid fa-toolbox text-9xl text-slate-800"></i>
                     </div>
-
                     <div class="relative z-10">
                         <div class="inline-block bg-slate-200 text-slate-700 font-bold px-4 py-1.5 rounded-full text-xs mb-6 shadow-sm">OPÇÃO B (Manual)</div>
-                        <h3 class="text-2xl font-bold text-law-900 mb-4 flex items-center gap-3">
-                            Configuração Manual
-                        </h3>
-                        <p class="text-slate-600 mb-8 leading-relaxed h-20">
-                            Prefere usar seu próprio chat (LLM Genérico ou Local)? Baixe nosso <strong>Kit de Documentos</strong> e copie nosso <strong>Prompt Mestre</strong>.
-                        </p>
-                        
-                        <div class="space-y-3 mb-8">
-                            <div class="flex items-center gap-3 text-sm text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
-                                <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0"><i class="fa-solid fa-file-pdf"></i></div>
-                                <span>Download dos PDFs oficiais atualizados</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">
-                                <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0"><i class="fa-solid fa-universal-access"></i></div>
-                                <span>Funciona em qualquer IA (Claude, Llama, etc)</span>
-                            </div>
-                        </div>
-
-                        <a href="#ferramenta" onclick="switchTab('prompt')" class="inline-block w-full text-center bg-slate-100 text-law-900 font-bold py-4 rounded-xl hover:bg-slate-200 transition border border-slate-300">
-                            Ver Prompt & Arquivos
-                        </a>
+                        <h3 class="text-2xl font-bold text-law-900 mb-4 flex items-center gap-3">Configuração Manual</h3>
+                        <p class="text-slate-600 mb-8 leading-relaxed h-20">Prefere usar seu próprio chat? Baixe nosso <strong>Kit de Documentos</strong> e copie nosso <strong>Prompt Mestre</strong>.</p>
+                        <ul class="text-sm text-slate-500 space-y-2 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-law-gold"></i> Controle total dos arquivos.</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-law-gold"></i> Funciona em qualquer IA.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Tool Section -->
+    <!-- Main Tool Section: WIZARD -->
     <div id="ferramenta" class="bg-law-900 text-white py-24 relative overflow-hidden">
         <!-- Decoration -->
         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-law-gold to-transparent"></div>
         <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-law-gold/10 rounded-full blur-3xl"></div>
 
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-12">
+        <div class="container mx-auto px-6 relative z-10 max-w-4xl">
+            <div class="text-center mb-10">
                 <span class="text-law-gold font-bold tracking-widest uppercase text-sm border border-law-gold/30 px-3 py-1 rounded-full bg-law-900/50 backdrop-blur-sm">A Ferramenta</span>
                 <h2 class="text-4xl md:text-5xl font-serif font-bold mt-4 text-white">Área de Trabalho</h2>
-                <p class="text-slate-400 mt-3">Tudo o que você precisa em um só lugar.</p>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <!-- Wizard Container -->
+            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-law-700 text-slate-800">
                 
-                <!-- LEFT COLUMN: PROMPT/AGENTS GENERATOR -->
-                <div class="bg-law-800/80 backdrop-blur-sm p-1 rounded-2xl border border-law-700 shadow-2xl relative">
-                    
-                    <!-- Tabs Header -->
-                    <div class="flex bg-law-950/50 rounded-t-xl p-1 mb-0 border-b border-law-700">
-                        <button onclick="switchTab('agents')" id="tab-btn-agents" class="flex-1 px-4 py-3 text-sm font-bold text-law-900 bg-law-gold rounded-lg shadow-lg transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-robot"></i> Agentes Prontos
-                        </button>
-                        <button onclick="switchTab('prompt')" id="tab-btn-prompt" class="flex-1 px-4 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-code"></i> Modo Manual
-                        </button>
+                <!-- Progress Header -->
+                <div class="bg-law-800 p-6 border-b border-law-700">
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <div class="text-sm font-bold text-law-gold uppercase tracking-wide" id="step-indicator-text">Passo 1 de 3</div>
+                        <div class="text-sm text-slate-400" id="step-title">Seleção de Modo</div>
                     </div>
-
-                    <div class="p-8 pt-6">
-                        <!-- TAB 1: AGENTS -->
-                        <div id="tab-content-agents" class="tab-content active">
-                            <div class="flex items-center justify-between mb-6">
-                                <h3 class="text-xl font-bold text-white">Escolha seu Agente</h3>
-                                <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded border border-green-500/30">Online</span>
-                            </div>
-                            
-                            <p class="text-sm text-slate-300 mb-6 leading-relaxed">Clique no card abaixo para abrir o chat diretamente na plataforma da IA. O agente já estará contextualizado.</p>
-                            
-                            <div class="space-y-4" id="agents-container">
-                                <!-- Dynamic Agents will be injected here -->
-                            </div>
-
-                            <div class="mt-6 p-4 bg-law-900/50 rounded-lg border border-law-700 flex gap-3">
-                                <i class="fa-solid fa-circle-exclamation text-law-gold mt-1 flex-shrink-0"></i>
-                                <p class="text-xs text-slate-400 leading-relaxed">
-                                    <strong>Nota:</strong> É necessário ter conta (às vezes conta Plus/Advanced) no ChatGPT ou Google Gemini para acessar GPTs customizados.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- TAB 2: PROMPT -->
-                        <div id="tab-content-prompt" class="tab-content">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-xl font-bold text-white">Prompt Mestre</h3>
-                                <button onclick="copyPrompt()" class="bg-law-gold hover:bg-law-goldlight text-law-900 text-xs font-bold py-1.5 px-3 rounded shadow transition flex items-center gap-2 active:scale-95">
-                                    <i class="fa-regular fa-copy"></i> Copiar Texto
-                                </button>
-                            </div>
-
-                            <div class="relative group">
-                                <textarea id="promptArea" readonly class="w-full h-80 bg-law-950 text-slate-300 font-mono text-xs p-5 rounded-lg border border-law-700 focus:outline-none focus:border-law-gold resize-none leading-relaxed custom-scrollbar shadow-inner"></textarea>
-                                <div class="absolute bottom-4 right-4 text-xs text-slate-600 pointer-events-none group-hover:text-slate-500 transition">apenas leitura</div>
-                            </div>
-                            
-                            <div class="flex items-start gap-3 mt-4 text-xs text-slate-400 italic">
-                                <i class="fa-solid fa-lightbulb text-law-gold flex-shrink-0 mt-0.5"></i>
-                                <p>Dica: Após colar este prompt, anexe os PDFs ao lado para garantir que a IA tenha a base legal correta.</p>
-                            </div>
-                        </div>
+                    <div class="w-full bg-law-900 h-2 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="progress-fill h-full bg-gradient-to-r from-law-gold to-yellow-400 w-1/3"></div>
                     </div>
                 </div>
 
-                <!-- RIGHT COLUMN: KNOWLEDGE SOURCE -->
-                <div class="flex flex-col gap-6">
-                    <div class="bg-white text-law-900 p-8 rounded-2xl shadow-xl border-l-4 border-law-gold relative">
-                        <div class="absolute -top-3 -right-3 w-10 h-10 bg-law-gold text-white rounded-full flex items-center justify-center font-bold shadow-lg">2</div>
-                        
-                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-book-bookmark text-law-gold"></i>
-                            Base de Conhecimento
-                        </h3>
-                        
-                        <p class="text-slate-600 mb-6 text-sm leading-relaxed">
-                            Documentos essenciais para a IA analisar seu caso. Se estiver usando o <strong>Modo Manual</strong>, você deve baixar e anexar estes arquivos no seu chat.
-                        </p>
+                <!-- Wizard Content Area -->
+                <div class="p-8 md:p-12 min-h-[400px] bg-slate-50 relative">
 
-                        <div id="files-container" class="space-y-3 max-h-[360px] overflow-y-auto pr-2 custom-scrollbar-dark">
-                            <!-- Dynamic Files will be injected here -->
+                    <!-- STEP 1: MODE SELECTION -->
+                    <div id="step-1" class="wizard-step active">
+                        <h3 class="text-2xl font-bold text-law-900 mb-6 text-center">Como você deseja prosseguir?</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Card Agent -->
+                            <div onclick="selectMode('agents')" id="card-mode-agents" class="cursor-pointer border-2 border-slate-200 bg-white p-6 rounded-xl hover:border-law-gold hover:shadow-lg transition group text-center relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-bl">Rápido</div>
+                                <div class="w-16 h-16 bg-law-100 rounded-full flex items-center justify-center text-law-900 text-3xl mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-robot"></i>
+                                </div>
+                                <h4 class="font-bold text-lg mb-2">Agentes Prontos</h4>
+                                <p class="text-sm text-slate-500">Use nossos GPTs já configurados. Ideal para quem quer agilidade.</p>
+                            </div>
+
+                            <!-- Card Manual -->
+                            <div onclick="selectMode('manual')" id="card-mode-manual" class="cursor-pointer border-2 border-slate-200 bg-white p-6 rounded-xl hover:border-law-gold hover:shadow-lg transition group text-center">
+                                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center text-slate-700 text-3xl mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-toolbox"></i>
+                                </div>
+                                <h4 class="font-bold text-lg mb-2">Modo Manual</h4>
+                                <p class="text-sm text-slate-500">Baixe os arquivos e configure sua própria IA. Controle total.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: RESOURCES (Dynamic) -->
+                    <div id="step-2" class="wizard-step">
+                        
+                        <!-- Content for AGENTS Mode -->
+                        <div id="content-agents" class="hidden">
+                            <h3 class="text-2xl font-bold text-law-900 mb-2 text-center">Escolha seu Agente</h3>
+                            <p class="text-center text-slate-500 mb-8">Clique para abrir diretamente na plataforma.</p>
+                            
+                            <div class="space-y-4 max-w-lg mx-auto" id="agents-container">
+                                <!-- JS injected -->
+                            </div>
+                            <div class="mt-8 p-4 bg-blue-50 text-blue-800 rounded-lg text-sm text-center border border-blue-100">
+                                <i class="fa-solid fa-circle-info mr-2"></i> Após abrir o agente, basta colar seu texto ou imagem para análise.
+                            </div>
                         </div>
 
-                        <button onclick="downloadAll()" class="w-full mt-6 bg-law-900 hover:bg-law-800 text-white font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                            <i class="fa-solid fa-file-zipper"></i> Baixar Kit Completo (.zip)
-                        </button>
+                        <!-- Content for MANUAL Mode -->
+                        <div id="content-manual" class="hidden">
+                            <div class="grid lg:grid-cols-2 gap-8 h-full">
+                                <!-- Files Column -->
+                                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                                    <h4 class="font-bold text-law-900 mb-4 flex items-center gap-2">
+                                        <span class="bg-law-900 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center">1</span>
+                                        Baixe os Arquivos
+                                    </h4>
+                                    <div id="files-container" class="space-y-2 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
+                                        <!-- JS injected -->
+                                    </div>
+                                    <button onclick="downloadAll()" class="w-full mt-4 bg-slate-100 hover:bg-slate-200 text-law-900 text-sm font-bold py-2 rounded-lg transition flex items-center justify-center gap-2">
+                                        <i class="fa-solid fa-file-zipper"></i> Baixar Kit (.zip)
+                                    </button>
+                                </div>
+
+                                <!-- Prompt Column -->
+                                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h4 class="font-bold text-law-900 flex items-center gap-2">
+                                            <span class="bg-law-900 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center">2</span>
+                                            Copie o Prompt
+                                        </h4>
+                                        <button onclick="copyPrompt()" class="text-xs bg-law-gold hover:bg-law-goldlight text-law-900 font-bold px-2 py-1 rounded">Copiar</button>
+                                    </div>
+                                    <textarea id="promptArea" readonly class="w-full flex-1 bg-slate-50 text-slate-600 font-mono text-xs p-3 rounded border border-slate-200 focus:outline-none resize-none mb-2"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Instructions Block -->
-                    <div class="bg-law-gold/10 border border-law-gold/30 p-6 rounded-2xl">
-                        <h4 class="font-bold text-law-gold mb-3 text-sm uppercase flex items-center gap-2">
-                            <i class="fa-solid fa-list-check"></i> Passo a Passo (Manual)
-                        </h4>
-                        <ol class="list-decimal list-inside text-sm text-slate-300 space-y-2.5 ml-1">
-                            <li><span class="text-slate-400">Baixe</span> o Kit de PDFs acima.</li>
-                            <li><span class="text-slate-400">Abra</span> sua IA (ChatGPT, Claude, Gemini...).</li>
-                            <li><span class="text-slate-400">Anexe</span> os arquivos PDF no chat.</li>
-                            <li><span class="text-slate-400">Cole</span> o Prompt Universal (Aba 1).</li>
-                            <li><span class="text-slate-400">Envie</span> seu texto/imagem para análise.</li>
-                        </ol>
+                    <!-- STEP 3: EXECUTION -->
+                    <div id="step-3" class="wizard-step">
+                        <div class="max-w-xl mx-auto text-center">
+                            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-law-900 mb-6">Tudo pronto para a análise!</h3>
+                            
+                            <div class="bg-white p-6 rounded-xl border border-slate-200 text-left shadow-sm">
+                                <h4 class="font-bold text-law-900 mb-4 border-b pb-2">Checklist de Execução:</h4>
+                                <ul class="space-y-4 text-slate-600">
+                                    <li class="flex gap-3">
+                                        <i class="fa-solid fa-1 text-law-gold mt-1"></i>
+                                        <span>Abra sua ferramenta de IA (ChatGPT, Gemini, etc).</span>
+                                    </li>
+                                    <li class="flex gap-3" id="checklist-manual-files">
+                                        <i class="fa-solid fa-2 text-law-gold mt-1"></i>
+                                        <span><strong>(Manual)</strong> Anexe os PDFs baixados no passo anterior.</span>
+                                    </li>
+                                    <li class="flex gap-3" id="checklist-manual-prompt">
+                                        <i class="fa-solid fa-3 text-law-gold mt-1"></i>
+                                        <span><strong>(Manual)</strong> Cole o Prompt Mestre que você copiou.</span>
+                                    </li>
+                                    <li class="flex gap-3">
+                                        <i class="fa-solid fa-arrow-right text-law-gold mt-1"></i>
+                                        <span><strong>Finalmente:</strong> Cole seu texto, descrição, roteiro ou anexe a imagem do seu post para a IA analisar.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <p class="mt-8 text-sm text-slate-500 italic">"A conformidade é a melhor estratégia de marketing."</p>
+                        </div>
                     </div>
+
+                </div>
+
+                <!-- Wizard Navigation Footer -->
+                <div class="bg-white p-6 border-t border-slate-200 flex justify-between items-center">
+                    <button id="btn-prev" onclick="prevStep()" class="text-slate-500 font-bold hover:text-law-900 transition flex items-center gap-2 opacity-50 cursor-not-allowed" disabled>
+                        <i class="fa-solid fa-arrow-left"></i> Voltar
+                    </button>
+                    
+                    <button id="btn-next" onclick="nextStep()" class="bg-law-900 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-law-800 transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Avançar <i class="fa-solid fa-arrow-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -459,9 +467,7 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-10">
                 <div class="flex items-center gap-3 mb-6 md:mb-0">
-                    <div class="w-10 h-10 bg-law-gold rounded flex items-center justify-center text-law-900">
-                        <i class="fa-solid fa-scale-balanced text-xl"></i>
-                    </div>
+                    <img src="logo_hp.png" alt="Habeas Post Logo" class="w-10 h-10 rounded">
                     <span class="font-serif text-2xl font-bold text-white tracking-wide">Habeas Post</span>
                 </div>
                 <div class="flex gap-6">
@@ -538,18 +544,18 @@ Comportamentos e Regras:
             ],
 
             "files": [
-                { "filename": "1 Estatuto da Advocacia e da OAB.pdf", "name": "Estatuto da Advocacia", "subtitle": "Documento Base", "icon": "fa-file-pdf", "color": "text-law-gold" },
+                { "filename": "1 Estatuto da Advocacia e da OAB.pdf", "name": "Estatuto da Advocacia", "subtitle": "Documento Base", "icon": "fa-scale-balanced", "color": "text-law-gold" },
                 { "filename": "2 Código de Ética e Disciplina da Ordem dos Advogados.pdf", "name": "Código de Ética e Disciplina", "subtitle": "Regras de Conduta", "icon": "fa-file-pdf", "color": "text-red-600" },
                 { "filename": "3 Provimento 205 da OABPR.pdf", "name": "Provimento 205/2021", "subtitle": "Regras de Marketing", "icon": "fa-file-pdf", "color": "text-red-600" },
-                { "filename": "4 Notas Orientativas.pdf", "name": "Notas Orientativas", "subtitle": "Diretrizes Extras", "icon": "fa-file-pdf", "color": "text-blue-500" },
-                { "filename": "5 Ementário de Jurisprudência da OABPR - Decisões Colegiadas.pdf", "name": "Ementário de Jurisprudência", "subtitle": "Casos Julgados", "icon": "fa-file-pdf", "color": "text-slate-600" }
+                { "filename": "4 Notas Orientativas.pdf", "name": "Notas Orientativas", "subtitle": "Diretrizes Extras", "icon": "fa-circle-info", "color": "text-blue-500" },
+                { "filename": "5 Ementário de Jurisprudência da OABPR - Decisões Colegiadas.pdf", "name": "Ementário de Jurisprudência", "subtitle": "Casos Julgados", "icon": "fa-gavel", "color": "text-slate-600" }
             ],
 
             "gallery": [
                 {
                     "id": 1,
                     "title": "Caso: Promessa de Resultado",
-                    "image": "exemplo2.jpeg",
+                    "image": "exemplo1.jpeg",
                     "status": "NÃO RECOMENDADO",
                     "statusColor": "bg-red-100 text-red-800",
                     "description": "O post utiliza a frase 'Ganhamos Sempre', o que configura promessa de resultado e induz o cliente a erro.",
@@ -558,7 +564,7 @@ Comportamentos e Regras:
                 {
                     "id": 2,
                     "title": "Caso: Ostentação",
-                    "image": "exemplo1.jpeg",
+                    "image": "exemplo2.jpeg",
                     "status": "ATENÇÃO",
                     "statusColor": "bg-yellow-100 text-yellow-800",
                     "description": "A imagem foca excessivamente em bens materiais (carro de luxo) associados ao exercício da profissão, o que pode ferir o princípio da sobriedade.",
@@ -567,7 +573,7 @@ Comportamentos e Regras:
                 {
                     "id": 3,
                     "title": "Caso: Informativo Correto",
-                    "image": "exemplo3.png",
+                    "image": "https://placehold.co/800x800/14532d/dcfce7?text=Dica+Jur%C3%ADdica:+Direito+do+Consumidor",
                     "status": "RECOMENDADO",
                     "statusColor": "bg-green-100 text-green-800",
                     "description": "O conteúdo é meramente informativo, esclarecendo dúvidas sobre direitos do consumidor sem incitar litígio ou captar clientes diretamente.",
@@ -586,17 +592,17 @@ Comportamentos e Regras:
             const container = document.getElementById('agents-container');
             container.innerHTML = habeasData.agents.map(agent => `
                 <a href="${agent.url}" target="_blank" class="block w-full group">
-                    <div class="flex items-center justify-between p-5 bg-law-900/40 border-2 border-law-700 rounded-xl group-hover:border-law-gold transition-all shadow-md group-hover:bg-law-900/60 backdrop-blur-sm">
+                    <div class="flex items-center justify-between p-5 bg-law-900/5 border-2 border-slate-200 rounded-xl group-hover:border-law-gold transition-all shadow-sm group-hover:bg-white hover:shadow-md">
                         <div class="flex items-center gap-5">
                             <div class="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg ${agent.colorClass} group-hover:scale-110 transition-transform">
                                 <i class="${agent.icon} text-xl"></i>
                             </div>
                             <div class="text-left">
-                                <h5 class="font-bold text-white text-lg group-hover:text-law-gold transition">${agent.name}</h5>
-                                <p class="text-sm text-slate-400 mt-1">${agent.description}</p>
+                                <h5 class="font-bold text-law-900 text-lg group-hover:text-law-gold transition">${agent.name}</h5>
+                                <p class="text-sm text-slate-500 mt-1">${agent.description}</p>
                             </div>
                         </div>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-slate-500 group-hover:text-law-gold text-xl transition-colors"></i>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-slate-400 group-hover:text-law-gold text-xl transition-colors"></i>
                     </div>
                 </a>
             `).join('');
@@ -619,6 +625,116 @@ Comportamentos e Regras:
                 </div>
             `).join('');
         }
+
+        // --- WIZARD LOGIC ---
+        let currentStep = 1;
+        let selectedMode = null; // 'agents' or 'manual'
+
+        function selectMode(mode) {
+            selectedMode = mode;
+            
+            // Visual feedback on selection
+            document.getElementById('card-mode-agents').classList.remove('border-law-gold', 'bg-law-50', 'shadow-md');
+            document.getElementById('card-mode-manual').classList.remove('border-law-gold', 'bg-law-50', 'shadow-md');
+            
+            document.getElementById(`card-mode-${mode}`).classList.add('border-law-gold', 'bg-law-50', 'shadow-md');
+            
+            // Enable next button
+            document.getElementById('btn-next').disabled = false;
+            document.getElementById('btn-next').classList.remove('opacity-50', 'cursor-not-allowed');
+            
+            // Auto advance for better UX
+            setTimeout(() => {
+                if(currentStep === 1) nextStep();
+            }, 300);
+        }
+
+        function nextStep() {
+            if(currentStep >= 3) return;
+            
+            // Validation Step 1
+            if(currentStep === 1 && !selectedMode) {
+                showToast("Por favor, selecione uma opção para continuar.");
+                return;
+            }
+
+            currentStep++;
+            updateWizardUI();
+        }
+
+        function prevStep() {
+            if(currentStep <= 1) return;
+            currentStep--;
+            updateWizardUI();
+        }
+
+        function updateWizardUI() {
+            // Update Progress Bar
+            const progressBar = document.getElementById('progress-bar');
+            const stepIndicatorText = document.getElementById('step-indicator-text');
+            const stepTitle = document.getElementById('step-title');
+            
+            let percentage = 33;
+            let title = "Seleção de Modo";
+
+            if(currentStep === 2) {
+                percentage = 66;
+                title = selectedMode === 'agents' ? "Acessar Agente" : "Baixar Recursos";
+                
+                // Show Correct Content for Step 2
+                document.getElementById('content-agents').classList.toggle('hidden', selectedMode !== 'agents');
+                document.getElementById('content-manual').classList.toggle('hidden', selectedMode !== 'manual');
+            } 
+            else if(currentStep === 3) {
+                percentage = 100;
+                title = "Execução";
+                
+                // Toggle Checklist Items based on Mode
+                const manualItems = document.querySelectorAll('#checklist-manual-files, #checklist-manual-prompt');
+                manualItems.forEach(el => {
+                    el.style.display = selectedMode === 'manual' ? 'flex' : 'none';
+                });
+            }
+
+            progressBar.style.width = `${percentage}%`;
+            stepIndicatorText.innerText = `Passo ${currentStep} de 3`;
+            stepTitle.innerText = title;
+
+            // Show/Hide Steps with Animation
+            document.querySelectorAll('.wizard-step').forEach((el, index) => {
+                if(index + 1 === currentStep) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
+                }
+            });
+
+            // Button States
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+
+            // Prev Button
+            if(currentStep === 1) {
+                btnPrev.disabled = true;
+                btnPrev.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                btnPrev.disabled = false;
+                btnPrev.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            // Next Button Logic
+            if(currentStep === 1 && !selectedMode) {
+                btnNext.disabled = true;
+                btnNext.classList.add('opacity-50', 'cursor-not-allowed');
+            } else if (currentStep === 3) {
+                btnNext.style.display = 'none'; // Hide next on last step
+            } else {
+                btnNext.style.display = 'flex';
+                btnNext.disabled = false;
+                btnNext.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
 
         // --- GALLERY LOGIC ---
         let currentScale = 1;
@@ -730,22 +846,6 @@ Comportamentos e Regras:
 
         // --- INTERACTION FUNCTIONS ---
 
-        function switchTab(tab) {
-            // Hide all content
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            
-            // Reset buttons style
-            const defaultBtnClass = "flex-1 px-4 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2";
-            const activeBtnClass = "flex-1 px-4 py-3 text-sm font-bold text-law-900 bg-law-gold rounded-lg shadow-lg transition-all flex items-center justify-center gap-2";
-
-            document.getElementById('tab-btn-agents').className = defaultBtnClass;
-            document.getElementById('tab-btn-prompt').className = defaultBtnClass;
-            
-            // Activate
-            document.getElementById(`tab-content-${tab}`).classList.add('active');
-            document.getElementById(`tab-btn-${tab}`).className = activeBtnClass;
-        }
-
         function copyPrompt() {
             const promptArea = document.getElementById('promptArea');
             promptArea.select();
@@ -791,6 +891,10 @@ Comportamentos e Regras:
             renderAgents();
             renderFiles();
             initGallery();
+            
+            // Initialize Wizard state (disable next button)
+            document.getElementById('btn-next').disabled = true;
+            document.getElementById('btn-next').classList.add('opacity-50', 'cursor-not-allowed');
         });
 
     </script>
